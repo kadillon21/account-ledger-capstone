@@ -66,5 +66,24 @@ public class UserInput {
         return input;
     }
 
+    public static String promptForString(String prompt, String comparative) {
+        String input = "";
+        boolean inputValid = false;
+        System.out.print(prompt);
+
+        while (!inputValid) {
+            input = scanner.nextLine();
+            if (input.equalsIgnoreCase(comparative)) {
+                inputValid = true;
+            } else {
+                System.out.print(ColorUtilities.ERROR);
+                System.out.println(" You did not enter a valid menu option");
+                System.out.print(prompt);
+            }
+
+        }
+        return input;
+    }
+
 
 }
