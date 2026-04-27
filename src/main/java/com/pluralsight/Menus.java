@@ -16,7 +16,7 @@ public class Menus {
         System.out.println("╚══════════════════════════════╝");
     }
 
-    public static void LedgerMenu() {
+    public static void ledgerMenu() {
         System.out.println();
         System.out.println("╔══════════════════════════════╗");
         System.out.println("║          LEDGER              ║");
@@ -31,7 +31,7 @@ public class Menus {
         System.out.println("╚══════════════════════════════╝");
     }
 
-    public static void ReportsMenu() {
+    public static void reportsMenu() {
         System.out.println();
         System.out.println("╔══════════════════════════════╗");
         System.out.println("║          REPORTS             ║");
