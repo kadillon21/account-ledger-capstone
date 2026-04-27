@@ -68,27 +68,29 @@ public class UserInput {
     }
 
     public static double promptForDouble(String prompt, double min) {
-        double input = 0;
+        String input;
         boolean inputValid = false;
         System.out.print(prompt);
 
+        double value = 0;
         while (!inputValid) {
-            if (scanner.hasNextDouble()) {
-                input = scanner.nextDouble();
-                if (input >= min) {
+            input = scanner.nextLine();
+            try {
+                value = Double.parseDouble(input);
+                if (value >= min) {
                     inputValid = true;
                 } else {
                     System.out.print(ColorUtilities.ERROR);
                     System.out.println(" The valid you entered was too little...");
                     System.out.print(prompt);
                 }
-            } else {
+            } catch (NumberFormatException e) {
                 System.out.print(ColorUtilities.ERROR);
                 System.out.println("You did not provide a valid input try again...");
                 System.out.println(prompt);
             }
         }
-        return input;
+        return value;
     }
 
     public static String promptForString(String prompt, String comparative) {

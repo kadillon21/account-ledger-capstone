@@ -1,9 +1,11 @@
 package com.pluralsight;
 
+import java.awt.*;
+
 public class Menus {
 
     public static void mainMenu() {
-        System.out.println();
+        System.out.println(ColorUtilities.BRIGHT_CYAN);
         System.out.println("╔══════════════════════════════╗");
         System.out.println("║     ACCOUNTING LEDGER        ║");
         System.out.println("╠══════════════════════════════╣");
@@ -14,6 +16,7 @@ public class Menus {
         System.out.println("║  X)  Exit                    ║");
         System.out.println("║                              ║");
         System.out.println("╚══════════════════════════════╝");
+        System.out.println(ColorUtilities.RESET);
     }
 
     public static void ledgerMenu() {
