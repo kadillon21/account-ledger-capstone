@@ -1,6 +1,8 @@
 package com.pluralsight;
 
 import java.awt.*;
+import java.text.NumberFormat;
+import java.util.List;
 
 public class Menus {
 
@@ -48,6 +50,39 @@ public class Menus {
         System.out.println("║  0)  Back                    ║");
         System.out.println("║                              ║");
         System.out.println("╚══════════════════════════════╝");
+    }
+
+    public static void displayTransactions(List<Transaction> transactions){
+
+        NumberFormat money = NumberFormat.getCurrencyInstance();
+
+        System.out.println();
+        System.out.printf("");
+        System.out.println(/* horizontal divider line */);
+
+        // 3. Rows (newest first)
+        for (int i = transactions.size() - 1; i >= 0; i--) {
+            Transaction t = transactions.get(i);
+            String color = t.isDeposit() ? ColorUtilities.GREEN : ColorUtilities.RED;
+            System.out.printf("%-12s %-10s %-30s %-25s %s%12s%s%n",
+                    t.getDate(),
+                    t.getTime(),
+                    truncate(t.getDescription(), 29),
+                    truncate(t.getVendor(), 24),
+                    color,
+                    money.format(t.getAmount()),
+                    ColorUtilities.RESET
+            );
+        }
+
+        System.out.println();
+        System.out.printf("%d transactions displayed%n", transactions.size());
+        System.out.println();
+    }
+
+    public static String truncate(String s, int maxLen) {
+        if (s.length() <= maxLen) return s;
+        return s.substring(0, maxLen - 3) + "... ";
     }
 
 }

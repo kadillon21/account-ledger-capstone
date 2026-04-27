@@ -4,10 +4,11 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Ledger {
 
-    ArrayList<Transaction> transaction = new ArrayList<>();
+    private final ArrayList<Transaction> transactions = new ArrayList<>();
 
     public Ledger(){
 
@@ -26,7 +27,7 @@ public class Ledger {
                 String description = parts[2];
                 String vendor = parts[3];
                 double amount = Double.parseDouble(parts[4]);
-                transaction.add(new Transaction(date, time, description, vendor, amount));
+                transactions.add(new Transaction(date, time, description, vendor, amount));
             }
             bufferedReader.close();
         } catch (IOException e) {
@@ -35,7 +36,7 @@ public class Ledger {
     }
 
     public void saveTransaction(Transaction t){
-        transaction.add(t);
+        transactions.add(t);
 
         try {
             FileWriter fileWriter = new FileWriter("src/main/resources/transactions.csv", true);
@@ -50,8 +51,34 @@ public class Ledger {
         }
     }
 
+    public List<Transaction> getDeposits(){
+
+        List<Transaction> result = new ArrayList<>();
+
+        for(Transaction t : transactions){
+            if(t.isDeposit()){
+                result.add(t);
+            }
+        }
+        return result;
+
+    }
+
+    public List<Transaction> getPayments(){
+
+        List<Transaction> result = new ArrayList<>();
+
+        for(Transaction t : transactions){
+            if(t.isPayment()){
+                result.add(t);
+            }
+        }
+        return result;
+
+    }
+
     public ArrayList<Transaction> getLedger(){
-        return transaction;
+        return transactions;
     }
 
 

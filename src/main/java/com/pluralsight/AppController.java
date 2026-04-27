@@ -7,11 +7,11 @@ import java.time.temporal.ChronoUnit;
 
 public class AppController {
 
-    Ledger ledger = new Ledger();
-
+    private final Ledger ledger = new Ledger();
+    private boolean programmRunning = true;
     public void run(){
 
-        System.out.println(ledger.getLedger());
+        ledger.loadTransactions();
         handleHomeScreen();
 
     }
@@ -37,23 +37,27 @@ public class AppController {
         }
     }
     private void handleLedgerScreen(){
-        Menus.ledgerMenu();
-        switch (UserInput.promptForChar("Your choice: ")) {
-            case 'A':
-
-                break;
-            case 'D':
-                addDeposit(ledger);
-                break;
-            case 'P':
-                makePayment();
-                break;
-            case 'R':
-                handleReportsScreen();
-                break;
-            case 'H':
-
+        boolean onLedgerScreen = true;
+        while (onLedgerScreen) {
+            Menus.ledgerMenu();
+            switch (UserInput.promptForChar("Your choice: ")) {
+                case 'A':
+                    Menus.displayTransactions(ledger.getLedger());
+                    break;
+                case 'D':
+                    Menus.displayTransactions(ledger.getDeposits());
+                    break;
+                case 'P':
+                    Menus.displayTransactions(ledger.getPayments());
+                    break;
+                case 'R':
+                    handleReportsScreen();
+                    break;
+                case 'H':
+                    onLedgerScreen = false;
+            }
         }
+
     }
 
     private void handleReportsScreen(){
@@ -75,6 +79,7 @@ public class AppController {
                     break;
                 case 5:
                     Reports.searchByVendor();
+                    break;
                 case 0:
                     onReportScreen = false;
             }
@@ -100,7 +105,7 @@ public class AppController {
         System.out.println("  Amount:      " + ColorUtilities.BRIGHT_RED + money.format(amount) + ColorUtilities.RESET);
 
         while (switchRunning) {
-            switch (UserInput.promptForChar("\nSave this transaction? [Y/n]")) {
+            switch (UserInput.promptForChar("\nSave this transactions? [Y/n]")) {
                 case 'Y':
                     ledger.saveTransaction(new Transaction(date, time, description, vendor, amount));
                     switchRunning = false;
@@ -136,7 +141,7 @@ public class AppController {
         System.out.println("  Amount:      " + ColorUtilities.GREEN + money.format(amount) + ColorUtilities.RESET);
 
         while (switchRunning) {
-            switch (UserInput.promptForChar("\nSave this transaction? [Y/n]")) {
+            switch (UserInput.promptForChar("\nSave this transactions? [Y/n]")) {
                 case 'Y':
                     ledger.saveTransaction(new Transaction(date, time, description, vendor, amount));
                     switchRunning = false;
@@ -156,5 +161,11 @@ public class AppController {
 
     public static void showAccountOverview(){
 
+    }
+
+    private void displayDeposits(Ledger ledger) {
+    }
+
+    private void showAllEntries(Ledger ledger) {
     }
 }
