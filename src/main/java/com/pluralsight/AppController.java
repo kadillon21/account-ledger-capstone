@@ -83,7 +83,6 @@ public class AppController {
 
     private void addDeposit(Ledger ledger){
 
-
         System.out.println("── Add Deposit ──");
         String description = UserInput.promptForString("Description: ");
         String vendor = UserInput.promptForString("Vendor: ");
@@ -98,10 +97,10 @@ public class AppController {
         System.out.println("  Time:        " + time);
         System.out.println("  Description: " + description);
         System.out.println("  Vendor:      " + vendor);
-        System.out.println("  Amount:      " + ColorUtilities.GREEN + money.format(amount) + ColorUtilities.RESET);
+        System.out.println("  Amount:      " + ColorUtilities.BRIGHT_RED + money.format(amount) + ColorUtilities.RESET);
 
-        while (switchRunning)
-            switch (UserInput.promptForChar("\nSave this transaction? [Y/n]")){
+        while (switchRunning) {
+            switch (UserInput.promptForChar("\nSave this transaction? [Y/n]")) {
                 case 'Y':
                     ledger.saveTransaction(new Transaction(date, time, description, vendor, amount));
                     switchRunning = false;
@@ -115,10 +114,43 @@ public class AppController {
                     break;
 
             }
-
+        }
     }
 
     private void makePayment(){
+
+        System.out.println("── Make Payment ──");
+        String description = UserInput.promptForString("Description: ");
+        String vendor = UserInput.promptForString("Vendor: ");
+        double amount = -UserInput.promptForDouble("Amount: ", 1);
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now().truncatedTo(ChronoUnit.SECONDS);
+        NumberFormat money = NumberFormat.getCurrencyInstance();
+        boolean switchRunning = true;
+
+        System.out.println("Confirm:");
+        System.out.println("  Date:        " + date);
+        System.out.println("  Time:        " + time);
+        System.out.println("  Description: " + description);
+        System.out.println("  Vendor:      " + vendor);
+        System.out.println("  Amount:      " + ColorUtilities.GREEN + money.format(amount) + ColorUtilities.RESET);
+
+        while (switchRunning) {
+            switch (UserInput.promptForChar("\nSave this transaction? [Y/n]")) {
+                case 'Y':
+                    ledger.saveTransaction(new Transaction(date, time, description, vendor, amount));
+                    switchRunning = false;
+                    break;
+                case 'N':
+                    System.out.println("Transaction Canceled. Returning to home...");
+                    switchRunning = false;
+                    break;
+                default:
+                    System.out.println(ColorUtilities.ERROR + "You did not enter a valid menu option try again");
+                    break;
+
+            }
+        }
 
     }
 
