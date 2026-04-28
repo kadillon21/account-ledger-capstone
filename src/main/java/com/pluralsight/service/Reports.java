@@ -1,5 +1,9 @@
-package com.pluralsight;
+package com.pluralsight.service;
 
+
+import com.pluralsight.model.Transaction;
+import com.pluralsight.util.UserInput;
+import com.pluralsight.ui.Menus;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -48,6 +52,11 @@ public class Reports {
         String comparator = UserInput.promptForString("Vendor: ");
         List<Transaction> filtered = transactions.stream().filter(
                 transaction -> transaction.getVendor().equalsIgnoreCase(comparator)).toList();
+
+        if(filtered.isEmpty()){
+            System.out.println("\nNo files to display");
+        } else {
         Menus.displayTransactions(filtered);
+        }
     }
 }

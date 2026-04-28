@@ -1,6 +1,8 @@
-package com.pluralsight;
+package com.pluralsight.ui;
 
-import java.awt.*;
+import com.pluralsight.model.Transaction;
+import com.pluralsight.util.ColorUtilities;
+
 import java.text.NumberFormat;
 import java.util.List;
 

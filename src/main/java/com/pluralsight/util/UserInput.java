@@ -1,6 +1,4 @@
-package com.pluralsight;
-
-import java.awt.*;
+package com.pluralsight.util;
 
 import java.util.Scanner;
 

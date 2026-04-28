@@ -1,4 +1,11 @@
-package com.pluralsight;
+package com.pluralsight.controller;
+
+import com.pluralsight.model.Transaction;
+import com.pluralsight.service.Ledger;
+import com.pluralsight.service.Reports;
+import com.pluralsight.ui.Menus;
+import com.pluralsight.util.ColorUtilities;
+import com.pluralsight.util.UserInput;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -102,7 +109,7 @@ public class AppController {
         System.out.println("  Time:        " + time);
         System.out.println("  Description: " + description);
         System.out.println("  Vendor:      " + vendor);
-        System.out.println("  Amount:      " + ColorUtilities.BRIGHT_RED + money.format(amount) + ColorUtilities.RESET);
+        System.out.println("  Amount:      " + ColorUtilities.BRIGHT_GREEN + money.format(amount) + ColorUtilities.RESET);
 
         while (switchRunning) {
             switch (UserInput.promptForChar("\nSave this transactions? [Y/n]")) {
@@ -138,7 +145,7 @@ public class AppController {
         System.out.println("  Time:        " + time);
         System.out.println("  Description: " + description);
         System.out.println("  Vendor:      " + vendor);
-        System.out.println("  Amount:      " + ColorUtilities.GREEN + money.format(amount) + ColorUtilities.RESET);
+        System.out.println("  Amount:      " + ColorUtilities.BRIGHT_RED + money.format(amount) + ColorUtilities.RESET);
 
         while (switchRunning) {
             switch (UserInput.promptForChar("\nSave this transactions? [Y/n]")) {
