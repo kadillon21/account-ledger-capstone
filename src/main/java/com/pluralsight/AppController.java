@@ -72,13 +72,13 @@ public class AppController {
                     Reports.previousMonthReport(ledger.getLedger());
                     break;
                 case 3:
-                    Reports.yearToDate();
+                    Reports.yearToDate(ledger.getLedger());
                     break;
                 case 4:
-                    Reports.previousYearReport();
+                    Reports.previousYearReport(ledger.getLedger());
                     break;
                 case 5:
-                    Reports.searchByVendor();
+                    Reports.searchByVendor(ledger.getLedger());
                     break;
                 case 0:
                     onReportScreen = false;
