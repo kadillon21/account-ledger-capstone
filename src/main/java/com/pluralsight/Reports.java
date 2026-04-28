@@ -1,10 +1,28 @@
 package com.pluralsight;
 
+
+import java.time.LocalDate;
+import java.util.List;
+
+
 public class Reports {
-    public static void monthToDateReport() {
+    public static void monthToDateReport(List<Transaction> transactions) {
+        LocalDate now = LocalDate.now();
+        LocalDate startOfMonth = now.withDayOfMonth(1);
+        List<Transaction> filtered = transactions.stream().filter(
+                transaction -> !transaction.getDate().isBefore(startOfMonth)
+                        && !transaction.getDate().isAfter(now)).toList();
+        Menus.displayTransactions(filtered);
     }
 
-    public static void previousMonthReport() {
+    public static void previousMonthReport(List<Transaction> transactions) {
+        LocalDate now = LocalDate.now();
+        LocalDate previousMonthStart = now.minusMonths(1).withDayOfMonth(1);
+        LocalDate previousMonthEnd = previousMonthStart.withDayOfMonth(previousMonthStart.lengthOfMonth());
+        List<Transaction> filtered = transactions.stream().filter(
+                transaction -> !transaction.getDate().isBefore(previousMonthStart)
+                        && !transaction.getDate().isAfter(previousMonthEnd)).toList();
+        Menus.displayTransactions(filtered);
     }
 
     public static void yearToDate() {

@@ -56,15 +56,18 @@ public class Menus {
 
         NumberFormat money = NumberFormat.getCurrencyInstance();
 
-        System.out.println();
-        System.out.printf("");
-        System.out.println(/* horizontal divider line */);
+        System.out.println("\n╔══════════════════════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║                                       ACCOUNT LEDGER                                             ║");
+        System.out.println("╠════════════╦══════════╦════════════════════════════════╦═══════════════════════════╦═════════════╣");
+        System.out.println("║    DATE    ║   TIME   ║          DESCRIPTION           ║           VENDOR          ║    AMOUNT   ║");
+        System.out.println("╠════════════╬══════════╬════════════════════════════════╬═══════════════════════════╬═════════════╣");
 
-        // 3. Rows (newest first)
+
         for (int i = transactions.size() - 1; i >= 0; i--) {
             Transaction t = transactions.get(i);
             String color = t.isDeposit() ? ColorUtilities.GREEN : ColorUtilities.RED;
-            System.out.printf("%-12s %-10s %-30s %-25s %s%12s%s%n",
+
+            System.out.printf("║ %-11s║ %-9s║ %-30s ║ %-25s ║%s%12s%s ║%n",
                     t.getDate(),
                     t.getTime(),
                     truncate(t.getDescription(), 29),
@@ -75,9 +78,10 @@ public class Menus {
             );
         }
 
-        System.out.println();
-        System.out.printf("%d transactions displayed%n", transactions.size());
-        System.out.println();
+        System.out.println("╠════════════╩══════════╩════════════════════════════════╩═══════════════════════════╩═════════════╣");
+        System.out.printf("║  %d transactions displayed                                                                      ║%n", transactions.size());
+        System.out.println("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝");
+
     }
 
     public static String truncate(String s, int maxLen) {

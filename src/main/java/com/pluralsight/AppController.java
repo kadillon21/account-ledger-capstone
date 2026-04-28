@@ -66,10 +66,10 @@ public class AppController {
             Menus.reportsMenu();
             switch (UserInput.promptForInt("Your choice: ", 0, 5)) {
                 case 1:
-                    Reports.monthToDateReport();
+                    Reports.monthToDateReport(ledger.getLedger());
                     break;
                 case 2:
-                    Reports.previousMonthReport();
+                    Reports.previousMonthReport(ledger.getLedger());
                     break;
                 case 3:
                     Reports.yearToDate();
@@ -163,9 +163,4 @@ public class AppController {
 
     }
 
-    private void displayDeposits(Ledger ledger) {
-    }
-
-    private void showAllEntries(Ledger ledger) {
-    }
 }
