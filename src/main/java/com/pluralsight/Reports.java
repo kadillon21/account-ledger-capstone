@@ -45,5 +45,9 @@ public class Reports {
     }
 
     public static void searchByVendor(List<Transaction> transactions) {
+        String comparator = UserInput.promptForString("Vendor: ");
+        List<Transaction> filtered = transactions.stream().filter(
+                transaction -> transaction.getVendor().equalsIgnoreCase(comparator)).toList();
+        Menus.displayTransactions(filtered);
     }
 }
