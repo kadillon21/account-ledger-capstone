@@ -9,81 +9,106 @@ import java.util.List;
 public class Menus {
 
     public static void mainMenu() {
-        System.out.println(ColorUtilities.BRIGHT_CYAN);
-        System.out.println("╔══════════════════════════════╗");
-        System.out.println("║     ACCOUNTING LEDGER        ║");
-        System.out.println("╠══════════════════════════════╣");
-        System.out.println("║                              ║");
-        System.out.println("║  D)  Add Deposit             ║");
-        System.out.println("║  P)  Make Payment (Debit)    ║");
-        System.out.println("║  L)  Ledger                  ║");
-        System.out.println("║  X)  Exit                    ║");
-        System.out.println("║                              ║");
-        System.out.println("╚══════════════════════════════╝");
-        System.out.println(ColorUtilities.RESET);
+        String B  = ColorUtilities.BORDER;
+        String A  = ColorUtilities.ACCENT;
+        String Bo = ColorUtilities.BOLD;
+        String U  = ColorUtilities.UNDERLINE;
+        String R  = ColorUtilities.RESET;
+
+        System.out.println(B + "╔══════════════════════════════╗");
+        System.out.println(B + "║  " + Bo + U + R + "    ACCOUNTING LEDGER       " + R + B + "║");
+        System.out.println(B + "╠══════════════════════════════╣");
+        System.out.println(B + "║                              ║");
+        System.out.println(B + "║  " + A + "D" + R + ")  Add Deposit             " + B + "║");
+        System.out.println(B + "║  " + A + "P" + R + ")  Make Payment (Debit)    " + B + "║");
+        System.out.println(B + "║  " + A + "L" + R + ")  Ledger                  " + B + "║");
+        System.out.println(B + "║  " + A + "X" + R + ")  Exit                    " + B + "║");
+        System.out.println(B + "║                              ║");
+        System.out.println(B + "╚══════════════════════════════╝" + R);
     }
 
     public static void ledgerMenu() {
+        String B  = ColorUtilities.BORDER;
+        String A  = ColorUtilities.ACCENT;
+        String Bo = ColorUtilities.BOLD;
+        String U  = ColorUtilities.UNDERLINE;
+        String R  = ColorUtilities.RESET;
+
         System.out.println();
-        System.out.println("╔══════════════════════════════╗");
-        System.out.println("║          LEDGER              ║");
-        System.out.println("╠══════════════════════════════╣");
-        System.out.println("║                              ║");
-        System.out.println("║  A)  All Entries             ║");
-        System.out.println("║  D)  Deposits                ║");
-        System.out.println("║  P)  Payments                ║");
-        System.out.println("║  R)  Reports                 ║");
-        System.out.println("║  H)  Home                    ║");
-        System.out.println("║                              ║");
-        System.out.println("╚══════════════════════════════╝");
+        System.out.println(B + "╔══════════════════════════════╗");
+        System.out.println(B + "║     " + Bo + U + R + "       LEDGER            " + R + B + "║");
+        System.out.println(B + "╠══════════════════════════════╣");
+        System.out.println(B + "║                              ║");
+        System.out.println(B + "║  " + A + "A" + R + ")  All Entries             " + B + "║");
+        System.out.println(B + "║  " + A + "D" + R + ")  Deposits                " + B + "║");
+        System.out.println(B + "║  " + A + "P" + R + ")  Payments                " + B + "║");
+        System.out.println(B + "║  " + A + "R" + R + ")  Reports                 " + B + "║");
+        System.out.println(B + "║  " + A + "H" + R + ")  Home                    " + B + "║");
+        System.out.println(B + "║                              ║");
+        System.out.println(B + "╚══════════════════════════════╝" + R);
     }
 
     public static void reportsMenu() {
+        String B  = ColorUtilities.BORDER;
+        String A  = ColorUtilities.ACCENT;
+        String Bo = ColorUtilities.BOLD;
+        String U  = ColorUtilities.UNDERLINE;
+        String R  = ColorUtilities.RESET;
+
         System.out.println();
-        System.out.println("╔══════════════════════════════╗");
-        System.out.println("║          REPORTS             ║");
-        System.out.println("╠══════════════════════════════╣");
-        System.out.println("║                              ║");
-        System.out.println("║  1)  Month To Date           ║");
-        System.out.println("║  2)  Previous Month          ║");
-        System.out.println("║  3)  Year To Date            ║");
-        System.out.println("║  4)  Previous Year           ║");
-        System.out.println("║  5)  Search by Vendor        ║");
-        System.out.println("║  0)  Back                    ║");
-        System.out.println("║                              ║");
-        System.out.println("╚══════════════════════════════╝");
+        System.out.println(B + "╔══════════════════════════════╗");
+        System.out.println(B + "║     " + Bo + U + R + "      REPORTS            " + R + B + "║");
+        System.out.println(B + "╠══════════════════════════════╣");
+        System.out.println(B + "║                              ║");
+        System.out.println(B + "║  " + A + "1" + R + ")  Month To Date           " + B + "║");
+        System.out.println(B + "║  " + A + "2" + R + ")  Previous Month          " + B + "║");
+        System.out.println(B + "║  " + A + "3" + R + ")  Year To Date            " + B + "║");
+        System.out.println(B + "║  " + A + "4" + R + ")  Previous Year           " + B + "║");
+        System.out.println(B + "║  " + A + "5" + R + ")  Search by Vendor        " + B + "║");
+        System.out.println(B + "║  " + A + "0" + R + ")  Back                    " + B + "║");
+        System.out.println(B + "║                              ║");
+        System.out.println(B + "╚══════════════════════════════╝" + R);
     }
 
-    public static void displayTransactions(List<Transaction> transactions){
-
+    public static void displayTransactions(List<Transaction> transactions) {
+        String B = ColorUtilities.BORDER;
+        String A = ColorUtilities.ACCENT;
+        String M = ColorUtilities.MUTED;
+        String R = ColorUtilities.RESET;
         NumberFormat money = NumberFormat.getCurrencyInstance();
 
-        System.out.println("\n╔══════════════════════════════════════════════════════════════════════════════════════════════════╗");
-        System.out.println("║                                       ACCOUNT LEDGER                                             ║");
-        System.out.println("╠════════════╦══════════╦════════════════════════════════╦═══════════════════════════╦═════════════╣");
-        System.out.println("║    DATE    ║   TIME   ║          DESCRIPTION           ║           VENDOR          ║    AMOUNT   ║");
-        System.out.println("╠════════════╬══════════╬════════════════════════════════╬═══════════════════════════╬═════════════╣");
-
+        System.out.println(B + "\n╔══════════════════════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println(B + "║                                       ACCOUNT LEDGER                                             ║");
+        System.out.println(B + "╠════════════╦══════════╦════════════════════════════════╦═══════════════════════════╦═════════════╣");
+        System.out.println(B + "║ " + A + "   DATE    " + B + "║ " + A + "  TIME   " + B + "║ " + A + "         DESCRIPTION           " + B + "║ " + A + "          VENDOR          " + B + "║ " + A + "   AMOUNT   " + B + "║");
+        System.out.println(B + "╠════════════╬══════════╬════════════════════════════════╬═══════════════════════════╬═════════════╣");
 
         for (int i = transactions.size() - 1; i >= 0; i--) {
             Transaction t = transactions.get(i);
-            String color = t.isDeposit() ? ColorUtilities.GREEN : ColorUtilities.RED;
+            String amtColor = t.isDeposit() ? ColorUtilities.SUCCESS : ColorUtilities.DANGER;
 
-            System.out.printf("║ %-11s║ %-9s║ %-30s ║ %-25s ║%s%12s%s ║%n",
+            System.out.printf(B + "║" + R + " %-11s" + B + "║" + M + " %-9s" + B + "║" + R + " %-30s " + B + "║" + R + " %-25s " + B + "║" + amtColor + "%12s" + B + " ║%n",
                     t.getDate(),
                     t.getTime(),
                     truncate(t.getDescription(), 29),
                     truncate(t.getVendor(), 24),
-                    color,
-                    money.format(t.getAmount()),
-                    ColorUtilities.RESET
+                    money.format(t.getAmount())
             );
         }
 
-        System.out.println("╠════════════╩══════════╩════════════════════════════════╩═══════════════════════════╩═════════════╣");
-        System.out.printf("║  %d transactions displayed                                                                      ║%n", transactions.size());
-        System.out.println("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝");
 
+        int count = transactions.size(); 
+        int digits = String.valueOf(count).length();
+        String spacer = switch (digits) {
+            case 1 -> "%72s║%n";
+            case 2 -> "%71s║%n";
+            case 3 -> "%70s║%n";
+            default -> "%69s║%n";
+        };
+
+        System.out.println(B + "╠════════════╩══════════╩════════════════════════════════╩═══════════════════════════╩═════════════╣");
+        System.out.printf( B + "║  " + A + "%d transactions displayed" + B + spacer, transactions.size(), "");
+        System.out.println(B + "╚══════════════════════════════════════════════════════════════════════════════════════════════════╝" + R);
     }
 
     public static String truncate(String s, int maxLen) {

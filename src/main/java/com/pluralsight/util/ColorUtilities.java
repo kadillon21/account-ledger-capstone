@@ -38,4 +38,24 @@ public class ColorUtilities {
     public static final String ERROR = ColorUtilities.BRIGHT_RED + ColorUtilities.BOLD + "ERROR: " + ColorUtilities.RESET;
     private ColorUtilities() {
     }
+
+    // Color Scheme
+    // Structure (borders, dividers)
+    public static final String BORDER = "\u001B[38;5;75m";
+
+    // Action / highlight (menu keys, prompts)
+    public static final String ACCENT = "\u001B[38;5;208m";
+
+    // Success / money in
+    public static final String SUCCESS = "\u001B[38;5;114m";
+
+    // Danger / money out / errors
+    public static final String DANGER = "\u001B[38;5;203m";
+
+    // Warning / (confirmations)
+
+    public static final String WARNING = ColorUtilities.YELLOW;
+
+    // Muted (helper text, timestamps)
+    public static final String MUTED = "\u001B[38;5;243m";
 }
