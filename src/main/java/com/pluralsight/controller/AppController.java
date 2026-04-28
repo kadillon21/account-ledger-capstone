@@ -7,6 +7,7 @@ import com.pluralsight.ui.Menus;
 import com.pluralsight.util.ColorUtilities;
 import com.pluralsight.util.UserInput;
 
+import java.awt.*;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -27,7 +28,7 @@ public class AppController {
         boolean onHomeScreen = true;
         while (onHomeScreen) {
             Menus.mainMenu();
-            switch (UserInput.promptForChar("Your choice: ")) {
+            switch (UserInput.promptForChar("Your choice ")) {
                 case 'D':
                     addDeposit(ledger);
                     break;
@@ -47,7 +48,7 @@ public class AppController {
         boolean onLedgerScreen = true;
         while (onLedgerScreen) {
             Menus.ledgerMenu();
-            switch (UserInput.promptForChar("Your choice: ")) {
+            switch (UserInput.promptForChar("Your choice ")) {
                 case 'A':
                     Menus.displayTransactions(ledger.getLedger());
                     break;
@@ -71,7 +72,7 @@ public class AppController {
         boolean onReportScreen = true;
         while (onReportScreen) {
             Menus.reportsMenu();
-            switch (UserInput.promptForInt("Your choice: ", 0, 5)) {
+            switch (UserInput.promptForInt("Your choice ", 0, 6)) {
                 case 1:
                     Reports.monthToDateReport(ledger.getLedger());
                     break;
@@ -87,6 +88,8 @@ public class AppController {
                 case 5:
                     Reports.searchByVendor(ledger.getLedger());
                     break;
+                case 6:
+                    Reports.customSearch(ledger.getLedger());
                 case 0:
                     onReportScreen = false;
             }
@@ -95,24 +98,24 @@ public class AppController {
 
     private void addDeposit(Ledger ledger){
 
-        System.out.println("── Add Deposit ──");
-        String description = UserInput.promptForString("Description: ");
-        String vendor = UserInput.promptForString("Vendor: ");
-        double amount = UserInput.promptForDouble("Amount: ", 1);
+        System.out.println("\n── Add Deposit ──");
+        String description = UserInput.promptForString("Description ");
+        String vendor = UserInput.promptForString("Vendor ");
+        double amount = UserInput.promptForDouble("Amount ", 1);
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now().truncatedTo(ChronoUnit.SECONDS);
         NumberFormat money = NumberFormat.getCurrencyInstance();
         boolean switchRunning = true;
 
-        System.out.println("Confirm:");
-        System.out.println("  Date:        " + date);
-        System.out.println("  Time:        " + time);
-        System.out.println("  Description: " + description);
-        System.out.println("  Vendor:      " + vendor);
-        System.out.println("  Amount:      " + ColorUtilities.BRIGHT_GREEN + money.format(amount) + ColorUtilities.RESET);
+        System.out.println(ColorUtilities.BOLD + "\nConfirm:");
+        System.out.println(ColorUtilities.ACCENT + "  Date        " + ColorUtilities.RESET + date);
+        System.out.println(ColorUtilities.ACCENT + "  Time        " + ColorUtilities.RESET + time);
+        System.out.println(ColorUtilities.ACCENT + "  Description " + ColorUtilities.RESET + description);
+        System.out.println(ColorUtilities.ACCENT + "  Vendor      " + ColorUtilities.RESET + vendor);
+        System.out.println(ColorUtilities.ACCENT + "  Amount      " + ColorUtilities.BRIGHT_GREEN + money.format(amount) + ColorUtilities.RESET);
 
         while (switchRunning) {
-            switch (UserInput.promptForChar("\nSave this transactions? [Y/n]")) {
+            switch (UserInput.promptForChar("\nSave this transactions? [Y/n] ")) {
                 case 'Y':
                     ledger.saveTransaction(new Transaction(date, time, description, vendor, amount));
                     switchRunning = false;
@@ -131,7 +134,7 @@ public class AppController {
 
     private void makePayment(){
 
-        System.out.println("── Make Payment ──");
+        System.out.println("\n── Make Payment ──");
         String description = UserInput.promptForString("Description: ");
         String vendor = UserInput.promptForString("Vendor: ");
         double amount = -UserInput.promptForDouble("Amount: ", 1);
@@ -141,14 +144,14 @@ public class AppController {
         boolean switchRunning = true;
 
         System.out.println("Confirm:");
-        System.out.println("  Date:        " + date);
-        System.out.println("  Time:        " + time);
-        System.out.println("  Description: " + description);
-        System.out.println("  Vendor:      " + vendor);
-        System.out.println("  Amount:      " + ColorUtilities.BRIGHT_RED + money.format(amount) + ColorUtilities.RESET);
+        System.out.println(ColorUtilities.ACCENT + "  Date:        " + ColorUtilities.RESET + date);
+        System.out.println(ColorUtilities.ACCENT + "  Time:        " + ColorUtilities.RESET + time);
+        System.out.println(ColorUtilities.ACCENT + "  Description: " + ColorUtilities.RESET + description);
+        System.out.println(ColorUtilities.ACCENT + "  Vendor:      " + ColorUtilities.RESET + vendor);
+        System.out.println(ColorUtilities.ACCENT + "  Amount:      " + ColorUtilities.BRIGHT_RED + money.format(amount) + ColorUtilities.RESET);
 
         while (switchRunning) {
-            switch (UserInput.promptForChar("\nSave this transactions? [Y/n]")) {
+            switch (UserInput.promptForChar("\nSave this transactions? [Y/n] ")) {
                 case 'Y':
                     ledger.saveTransaction(new Transaction(date, time, description, vendor, amount));
                     switchRunning = false;

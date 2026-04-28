@@ -1,9 +1,11 @@
 package com.pluralsight.util;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class UserInput {
     static Scanner scanner = new Scanner(System.in);
+    public static final String arrow = ColorUtilities.ACCENT + "❯ " + ColorUtilities.RESET;
 
     public UserInput(){
 
@@ -13,6 +15,7 @@ public class UserInput {
         String input;
         int value = 0;
         boolean inputValid = false;
+        prompt += arrow;
         System.out.print(prompt);
 
         while (!inputValid) {
@@ -33,7 +36,7 @@ public class UserInput {
             } catch(Exception e) {
                 System.out.print(ColorUtilities.ERROR);
                 System.out.println("You did not provide a valid input try again...");
-                System.out.println(prompt);
+                System.out.print(prompt);
             }
         }
         return value;
@@ -43,6 +46,7 @@ public class UserInput {
         String input;
         double value = 0;
         boolean inputValid = false;
+        prompt += arrow;
         System.out.print(prompt);
 
         while (!inputValid) {
@@ -63,7 +67,7 @@ public class UserInput {
             } catch (Exception e){
                 System.out.print(ColorUtilities.ERROR);
                 System.out.println("You did not provide a valid input try again...");
-                System.out.println(prompt);
+                System.out.print(prompt);
             }
         }
         return value;
@@ -73,6 +77,7 @@ public class UserInput {
         String input;
         double value = 0;
         boolean inputValid = false;
+        prompt += arrow;
         System.out.print(prompt);
 
 
@@ -90,7 +95,7 @@ public class UserInput {
             } catch (NumberFormatException e) {
                 System.out.print(ColorUtilities.ERROR);
                 System.out.println("You did not provide a valid input try again...");
-                System.out.println(prompt);
+                System.out.print(prompt);
             }
         }
         return value;
@@ -99,6 +104,7 @@ public class UserInput {
     public static String promptForString(String prompt, String comparative) {
         String input = "";
         boolean inputValid = false;
+        prompt += arrow;
         System.out.print(prompt);
 
         while (!inputValid) {
@@ -116,6 +122,7 @@ public class UserInput {
     }
 
     public static String promptForString(String prompt) {
+        prompt += arrow;
         System.out.print(prompt);
         return scanner.nextLine();
     }
@@ -123,10 +130,11 @@ public class UserInput {
     public static char promptForChar(String prompt){
         char returnValue = 0;
         boolean inputValid = false;
+        prompt += arrow;
         System.out.print(prompt);
 
         while (!inputValid) {
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().toUpperCase();
             if (input.length() == 1) {
                 returnValue = input.charAt(0);
                 inputValid = true;
@@ -141,30 +149,27 @@ public class UserInput {
 
 
 
-/*
-    public static char promptForChar(String prompt, String[] alternatives){
-        char returnValue = 0;
+    public static LocalDate promptForDate(String prompt){
         boolean inputValid = false;
+        prompt += arrow;
         System.out.print(prompt);
-        String input = scanner.nextLine();
+        LocalDate date = LocalDate.now();
 
-        while (!inputValid) {
-            if (input.length() == 1) {
-                returnValue = input.charAt(0);
+        while (!inputValid){
+            String input = scanner.nextLine();
+            try {
+                date = LocalDate.parse(input);
                 inputValid = true;
-            }
-            else {
-                for(String alt : alternatives){
+                return date;
 
-                }
+            }catch (Exception e){
                 System.out.print(ColorUtilities.ERROR);
-                System.out.println(" You did not enter a valid menu option");
+                System.out.println(" You did not enter a valid date try again...");
                 System.out.println(prompt);
             }
         }
-        return returnValue;
-    }
-*/
 
+        return date;
+    }
 
 }

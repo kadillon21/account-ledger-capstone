@@ -58,4 +58,6 @@ public class ColorUtilities {
 
     // Muted (helper text, timestamps)
     public static final String MUTED = "\u001B[38;5;243m";
+
+    public static final String ARROW = ColorUtilities.CYAN + "❯ " + ColorUtilities.RESET;
 }
