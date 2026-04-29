@@ -116,10 +116,13 @@ public class Reports {
                 switch (UserInput.promptForChar("Your choice ", "ADP")){
                     case 'A':
                         criteria.setTransType("(any)");
+                        break;
                     case 'D':
                         criteria.setTransType("Deposits");
+                        break;
                     case 'P':
                         criteria.setTransType("Payments");
+                        break;
                 }
                 break;
 
