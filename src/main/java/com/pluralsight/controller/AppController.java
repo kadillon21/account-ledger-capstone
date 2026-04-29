@@ -116,7 +116,7 @@ public class AppController {
         System.out.println(ConsoleUtilities.ACCENT + "  Amount      " + ConsoleUtilities.BRIGHT_GREEN + money.format(amount) + ConsoleUtilities.RESET);
 
         while (switchRunning) {
-            switch (UserInput.promptForChar("\nSave this transactions? [Y/n] ", "YN")) {
+            switch (UserInput.promptForChar("\nSave this transaction? [Y/N] ", "YN")) {
                 case 'Y':
                     ConsoleUtilities.spin("Adding deposit...", 3000);
                     ledger.saveTransaction(new Transaction(date, time, description, vendor, amount));
@@ -151,7 +151,7 @@ public class AppController {
         System.out.println(ConsoleUtilities.ACCENT + "  Amount:      " + ConsoleUtilities.BRIGHT_RED + money.format(amount) + ConsoleUtilities.RESET);
 
         while (switchRunning) {
-            switch (UserInput.promptForChar("\nSave this transactions? [Y/n] ", "YN")) {
+            switch (UserInput.promptForChar("\nSave this transactions? [Y/N] ", "YN")) {
                 case 'Y':
                     ConsoleUtilities.spin("Adding Payment...", 3000);
                     ledger.saveTransaction(new Transaction(date, time, description, vendor, amount));

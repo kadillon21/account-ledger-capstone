@@ -58,7 +58,7 @@ public class Reports {
                 transaction -> transaction.getVendor().equalsIgnoreCase(comparator)).toList();
 
         if (filtered.isEmpty()) {
-            System.out.println("\nNo files to display");
+            System.out.println("\nNo transactions to display");
         } else {
             Menus.displayTransactions(filtered);
         }
