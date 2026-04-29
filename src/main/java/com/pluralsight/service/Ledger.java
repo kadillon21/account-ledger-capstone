@@ -79,6 +79,34 @@ public class Ledger {
 
     }
 
+    public double getBalance() {
+        return transactions.stream().mapToDouble(Transaction::getAmount).sum();
+    }
+
+    public double getMonthToDateIncome() {
+        LocalDate now = LocalDate.now();
+        LocalDate startOfMonth = now.withDayOfMonth(1);
+        return transactions.stream()
+                .filter(t -> !t.getDate().isBefore(startOfMonth))
+                .filter(Transaction::isDeposit)
+                .mapToDouble(Transaction::getAmount)
+                .sum();
+    }
+
+    public double getMonthToDateExpenses() {
+        LocalDate now = LocalDate.now();
+        LocalDate startOfMonth = now.withDayOfMonth(1);
+        return transactions.stream()
+                .filter(t -> !t.getDate().isBefore(startOfMonth))
+                .filter(Transaction::isPayment)
+                .mapToDouble(Transaction::getAmount)
+                .sum();
+    }
+
+    public int getTransactionCount() {
+        return transactions.size();
+    }
+
     public ArrayList<Transaction> getLedger(){
         return transactions;
     }

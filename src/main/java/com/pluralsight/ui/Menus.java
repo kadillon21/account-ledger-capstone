@@ -2,14 +2,38 @@ package com.pluralsight.ui;
 
 import com.pluralsight.model.SearchCriteria;
 import com.pluralsight.model.Transaction;
+import com.pluralsight.service.Ledger;
 import com.pluralsight.util.ColorUtilities;
+import com.pluralsight.util.UserInput;
 
+import java.awt.*;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
 public class Menus {
+
+    public static void displayDashboard(Ledger ledger) {
+        String B  = ColorUtilities.BORDER;
+        String A  = ColorUtilities.ACCENT;
+        String Bo = ColorUtilities.BOLD;
+        String U  = ColorUtilities.UNDERLINE;
+        String R  = ColorUtilities.RESET;
+
+        double balance = ledger.getBalance();
+        String balanceColor = balance >= 0 ? ColorUtilities.SUCCESS : ColorUtilities.DANGER;
+        NumberFormat money = NumberFormat.getCurrencyInstance();
+
+        System.out.println();
+        System.out.println(B + "╔═ QUICK STATS " + "═══════════════════════════════════════"+ "╗");
+        System.out.printf(B + "║  Balance:        " + A + "%-35s" + B + "║%n", money.format(balance));
+        System.out.printf(B + "║  MTD Income:     " + ColorUtilities.GREEN + "%-35s" + B + "║%n", money.format(ledger.getMonthToDateIncome()));
+        System.out.printf(B + "║  MTD Expenses:   " + ColorUtilities.RED + "%-35s" + B + "║%n", money.format(ledger.getMonthToDateExpenses()));
+        System.out.printf(B + "║  Transactions:   %-35d" + B + "║%n", ledger.getTransactionCount());
+        System.out.println(B + "╚" + "═════════════════════════════════════════════════════" + "╝" + ColorUtilities.RESET);
+        System.out.println();
+    }
 
     public static void mainMenu() {
         String B  = ColorUtilities.BORDER;
@@ -150,38 +174,82 @@ public class Menus {
         String R = ColorUtilities.RESET;
         NumberFormat money = NumberFormat.getCurrencyInstance();
 
-        System.out.println(B + "\n╔══════════════════════════════════════════════════════════════════════════════════════════════════╗");
-        System.out.println(B + "║                                       ACCOUNT LEDGER                                             ║");
-        System.out.println(B + "╠════════════╦══════════╦════════════════════════════════╦═══════════════════════════╦═════════════╣");
-        System.out.println(B + "║ " + A + "   DATE    " + B + "║ " + A + "  TIME   " + B + "║ " + A + "         DESCRIPTION           " + B + "║ " + A + "          VENDOR          " + B + "║ " + A + "   AMOUNT   " + B + "║");
-        System.out.println(B + "╠════════════╬══════════╬════════════════════════════════╬═══════════════════════════╬═════════════╣");
-
-        for (int i = transactions.size() - 1; i >= 0; i--) {
-            Transaction transaction = transactions.get(i);
-            String amountColor = transaction.isDeposit() ? ColorUtilities.SUCCESS : ColorUtilities.DANGER;
-
-            System.out.printf(B + "║" + R + " %-11s" + B + "║" + M + " %-9s" + B + "║" + R + " %-30s " + B + "║" + R + " %-25s " + B + "║" + amountColor + "%12s" + B + " ║%n",
-                    transaction.getDate(),
-                    transaction.getTime(),
-                    truncate(transaction.getDescription(), 29),
-                    truncate(transaction.getVendor(), 24),
-                    money.format(transaction.getAmount())
-            );
+        if (transactions.isEmpty()) {
+            System.out.println(ColorUtilities.WARNING + "No transactions to display.");
+            return;
         }
 
+        int pageSize = 20;
+        int currentPage = 0;
+        int totalPages = (int) Math.ceil((double) transactions.size() / pageSize);
 
-        int count = transactions.size(); 
-        int digits = String.valueOf(count).length();
-        String spacer = switch (digits) {
-            case 1 -> "%72s║%n";
-            case 2 -> "%71s║%n";
-            case 3 -> "%70s║%n";
-            default -> "%69s║%n";
-        };
+        boolean viewing = true;
+        while (viewing) {
 
-        System.out.println(B + "╠════════════╩══════════╩════════════════════════════════╩═══════════════════════════╩═════════════╣");
-        System.out.printf( B + "║  " + A + "%d transactions displayed" + B + spacer, transactions.size(), "");
-        System.out.println(B + "╚══════════════════════════════════════════════════════════════════════════════════════════════════╝" + R);
+            System.out.println(B + "\n╔══════════════════════════════════════════════════════════════════════════════════════════════════╗");
+            System.out.println(B + "║                                       ACCOUNT LEDGER                                             ║");
+            System.out.println(B + "╠════════════╦══════════╦════════════════════════════════╦═══════════════════════════╦═════════════╣");
+            System.out.println(B + "║ " + A + "   DATE    " + B + "║ " + A + "  TIME   " + B + "║ " + A + "         DESCRIPTION           " + B + "║ " + A + "          VENDOR          " + B + "║ " + A + "   AMOUNT   " + B + "║");
+            System.out.println(B + "╠════════════╬══════════╬════════════════════════════════╬═══════════════════════════╬═════════════╣");
+
+            int start = currentPage * pageSize;
+            int end = Math.min(start + pageSize, transactions.size());
+            for (int i = start; i < end; i++) {
+                Transaction transaction = transactions.get(i);
+
+                String amountColor = transaction.isDeposit() ? ColorUtilities.SUCCESS : ColorUtilities.DANGER;
+
+                System.out.printf(B + "║" + R + " %-11s" + B + "║" + M + " %-9s" + B + "║" + R + " %-30s " + B + "║" + R + " %-25s " + B + "║" + amountColor + "%12s" + B + " ║%n",
+                        transaction.getDate(),
+                        transaction.getTime(),
+                        truncate(transaction.getDescription(), 29),
+                        truncate(transaction.getVendor(), 24),
+                        money.format(transaction.getAmount())
+                );
+            }
+
+            int count = transactions.size();
+            int digits = String.valueOf(count).length();
+            String spacer = switch (digits) {
+                case 1 -> "%75s║%n";
+                case 2 -> "%74s║%n";
+                case 3 -> "%73s║%n";
+                default -> "%72s║%n";
+            };
+
+            int count2 = totalPages;
+            int count3 =  + currentPage +1;
+            int digits2 = String.valueOf(count2).length();
+            digits2 += String.valueOf(count3).length();
+            String spacer2 = switch (digits2) {
+                case 2 -> "%85s║%n";
+                case 3 -> "%84s║%n";
+                case 4 -> "%83s║%n";
+                case 5 -> "%82s║%n";
+                default -> "%81s║%n";
+            };
+
+
+            System.out.println(B + "╠════════════╩══════════╩════════════════════════════════╩═══════════════════════════╩═════════════╣");
+            System.out.printf(B + "║  " + A + "%d total transactions " + B + spacer, transactions.size(), "");
+            System.out.printf(B + "║  " + A + "Page %d of %d" + B + spacer2 , currentPage + 1, totalPages, "");
+            System.out.println(B + "╚══════════════════════════════════════════════════════════════════════════════════════════════════╝" + R);
+
+
+            switch (UserInput.promptForChar("[N]ext  [P]rev  [Q]uit: ", "NPQ")) {
+                case 'N':
+                    if (currentPage < totalPages - 1) currentPage++;
+                    break;
+                case 'P':
+                    if (currentPage > 0) currentPage--;
+                    break;
+                case 'Q':
+                    viewing = false;
+                    break;
+            }
+
+        }
+
     }
 
     public static String truncate(String s, int maxLen) {
