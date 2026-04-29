@@ -117,10 +117,12 @@ public class AppController {
         while (switchRunning) {
             switch (UserInput.promptForChar("\nSave this transactions? [Y/n] ", "YN")) {
                 case 'Y':
+                    ConsoleUtilities.spin("Adding deposit...", 3000);
                     ledger.saveTransaction(new Transaction(date, time, description, vendor, amount));
                     switchRunning = false;
                     break;
                 case 'N':
+                    ConsoleUtilities.spin("Canceling..." , 3000);
                     System.out.println("Transaction Canceled. Returning to home...");
                     switchRunning = false;
                     break;
@@ -150,10 +152,12 @@ public class AppController {
         while (switchRunning) {
             switch (UserInput.promptForChar("\nSave this transactions? [Y/n] ", "YN")) {
                 case 'Y':
+                    ConsoleUtilities.spin("Adding Payment...", 3000);
                     ledger.saveTransaction(new Transaction(date, time, description, vendor, amount));
                     switchRunning = false;
                     break;
                 case 'N':
+                    ConsoleUtilities.spin("Canceling...", 3000);
                     System.out.println("Transaction Canceled. Returning to home...");
                     switchRunning = false;
                     break;

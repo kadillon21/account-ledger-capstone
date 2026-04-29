@@ -13,7 +13,6 @@ public class Menus {
 
     public static void displayDashboard(Ledger ledger) {
         String B  = ConsoleUtilities.BORDER;
-        String A  = ConsoleUtilities.ACCENT;
         String R  = ConsoleUtilities.RESET;
 
         double balance = ledger.getBalance();
@@ -180,6 +179,7 @@ public class Menus {
 
         boolean viewing = true;
         while (viewing) {
+            ConsoleUtilities.spin("Loading...", 1000);
 
             System.out.println(B + "\n╔══════════════════════════════════════════════════════════════════════════════════════════════════╗");
             System.out.println(B + "║                                       ACCOUNT LEDGER                                             ║");
