@@ -90,6 +90,7 @@ public class AppController {
                     break;
                 case 6:
                     Reports.customSearch(ledger.getLedger());
+                    break;
                 case 0:
                     onReportScreen = false;
             }
