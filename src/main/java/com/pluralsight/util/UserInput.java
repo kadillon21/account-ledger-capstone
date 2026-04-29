@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class UserInput {
     static Scanner scanner = new Scanner(System.in);
-    public static final String arrow = ColorUtilities.ACCENT + "❯ " + ColorUtilities.RESET;
+    public static final String arrow = ConsoleUtilities.ACCENT + "❯ " + ConsoleUtilities.RESET;
 
     public UserInput(){
 
@@ -25,16 +25,16 @@ public class UserInput {
                 if (value >= min && value <= max) {
                     inputValid = true;
                 } else if (value <= min) {
-                    System.out.print(ColorUtilities.ERROR);
+                    System.out.print(ConsoleUtilities.ERROR);
                     System.out.println(" The valid you entered was too little...");
                     System.out.print(prompt);
                 } else {
-                    System.out.print(ColorUtilities.ERROR);
+                    System.out.print(ConsoleUtilities.ERROR);
                     System.out.println(" The valid you entered was too high...");
                     System.out.print(prompt);
                 }
             } catch(Exception e) {
-                System.out.print(ColorUtilities.ERROR);
+                System.out.print(ConsoleUtilities.ERROR);
                 System.out.println("You did not provide a valid input try again...");
                 System.out.print(prompt);
             }
@@ -56,16 +56,16 @@ public class UserInput {
                 if (value >= min && value <= max) {
                     inputValid = true;
                 } else if (value <= min) {
-                    System.out.print(ColorUtilities.ERROR);
+                    System.out.print(ConsoleUtilities.ERROR);
                     System.out.println(" The valid you entered was too little...");
                     System.out.print(prompt);
                 } else {
-                    System.out.print(ColorUtilities.ERROR);
+                    System.out.print(ConsoleUtilities.ERROR);
                     System.out.println(" The valid you entered was too high...");
                     System.out.print(prompt);
                 }
             } catch (Exception e){
-                System.out.print(ColorUtilities.ERROR);
+                System.out.print(ConsoleUtilities.ERROR);
                 System.out.println("You did not provide a valid input try again...");
                 System.out.print(prompt);
             }
@@ -88,12 +88,12 @@ public class UserInput {
                 if (value >= min) {
                     inputValid = true;
                 } else {
-                    System.out.print(ColorUtilities.ERROR);
+                    System.out.print(ConsoleUtilities.ERROR);
                     System.out.println(" The valid you entered was too little...");
                     System.out.print(prompt);
                 }
             } catch (NumberFormatException e) {
-                System.out.print(ColorUtilities.ERROR);
+                System.out.print(ConsoleUtilities.ERROR);
                 System.out.println("You did not provide a valid input try again...");
                 System.out.print(prompt);
             }
@@ -112,7 +112,7 @@ public class UserInput {
             if (input.equalsIgnoreCase(comparative)) {
                 inputValid = true;
             } else {
-                System.out.print(ColorUtilities.ERROR);
+                System.out.print(ConsoleUtilities.ERROR);
                 System.out.println(" You did not enter a valid menu option");
                 System.out.print(prompt);
             }
@@ -139,7 +139,7 @@ public class UserInput {
                 returnValue = input.charAt(0);
                 inputValid = true;
             } else {
-                System.out.println(ColorUtilities.ERROR + "You did not enter a valid menu option");
+                System.out.println(ConsoleUtilities.ERROR + "You did not enter a valid menu option");
                 System.out.println(prompt);
             }
         }
@@ -153,7 +153,7 @@ public class UserInput {
             if (valid.indexOf(input) >= 0) {
                 return input;
             }
-            System.out.println(ColorUtilities.ERROR + " Invalid choice... Try again");
+            System.out.println(ConsoleUtilities.ERROR + " Invalid choice... Try again");
         }
     }
 
@@ -173,7 +173,7 @@ public class UserInput {
                 return date;
 
             }catch (Exception e){
-                System.out.print(ColorUtilities.ERROR);
+                System.out.print(ConsoleUtilities.ERROR);
                 System.out.println(" You did not enter a valid date try again...");
                 System.out.println(prompt);
             }

@@ -3,44 +3,41 @@ package com.pluralsight.ui;
 import com.pluralsight.model.SearchCriteria;
 import com.pluralsight.model.Transaction;
 import com.pluralsight.service.Ledger;
-import com.pluralsight.util.ColorUtilities;
+import com.pluralsight.util.ConsoleUtilities;
 import com.pluralsight.util.UserInput;
 
-import java.awt.*;
 import java.text.NumberFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 public class Menus {
 
     public static void displayDashboard(Ledger ledger) {
-        String B  = ColorUtilities.BORDER;
-        String A  = ColorUtilities.ACCENT;
-        String Bo = ColorUtilities.BOLD;
-        String U  = ColorUtilities.UNDERLINE;
-        String R  = ColorUtilities.RESET;
+        String B  = ConsoleUtilities.BORDER;
+        String A  = ConsoleUtilities.ACCENT;
+        String Bo = ConsoleUtilities.BOLD;
+        String U  = ConsoleUtilities.UNDERLINE;
+        String R  = ConsoleUtilities.RESET;
 
         double balance = ledger.getBalance();
-        String balanceColor = balance >= 0 ? ColorUtilities.SUCCESS : ColorUtilities.DANGER;
+        String balanceColor = balance >= 0 ? ConsoleUtilities.SUCCESS : ConsoleUtilities.DANGER;
         NumberFormat money = NumberFormat.getCurrencyInstance();
 
         System.out.println();
         System.out.println(B + "╔═ QUICK STATS " + "═══════════════════════════════════════"+ "╗");
         System.out.printf(B + "║  Balance:        " + A + "%-35s" + B + "║%n", money.format(balance));
-        System.out.printf(B + "║  MTD Income:     " + ColorUtilities.GREEN + "%-35s" + B + "║%n", money.format(ledger.getMonthToDateIncome()));
-        System.out.printf(B + "║  MTD Expenses:   " + ColorUtilities.RED + "%-35s" + B + "║%n", money.format(ledger.getMonthToDateExpenses()));
+        System.out.printf(B + "║  MTD Income:     " + ConsoleUtilities.GREEN + "%-35s" + B + "║%n", money.format(ledger.getMonthToDateIncome()));
+        System.out.printf(B + "║  MTD Expenses:   " + ConsoleUtilities.RED + "%-35s" + B + "║%n", money.format(ledger.getMonthToDateExpenses()));
         System.out.printf(B + "║  Transactions:   %-35d" + B + "║%n", ledger.getTransactionCount());
-        System.out.println(B + "╚" + "═════════════════════════════════════════════════════" + "╝" + ColorUtilities.RESET);
+        System.out.println(B + "╚" + "═════════════════════════════════════════════════════" + "╝" + ConsoleUtilities.RESET);
         System.out.println();
     }
 
     public static void mainMenu() {
-        String B  = ColorUtilities.BORDER;
-        String A  = ColorUtilities.ACCENT;
-        String Bo = ColorUtilities.BOLD;
-        String U  = ColorUtilities.UNDERLINE;
-        String R  = ColorUtilities.RESET;
+        String B  = ConsoleUtilities.BORDER;
+        String A  = ConsoleUtilities.ACCENT;
+        String Bo = ConsoleUtilities.BOLD;
+        String U  = ConsoleUtilities.UNDERLINE;
+        String R  = ConsoleUtilities.RESET;
 
         System.out.println(B + "╔══════════════════════════════╗");
         System.out.println(B + "║  " + Bo + U + R + "    ACCOUNTING LEDGER       " + R + B + "║");
@@ -55,11 +52,11 @@ public class Menus {
     }
 
     public static void ledgerMenu() {
-        String B  = ColorUtilities.BORDER;
-        String A  = ColorUtilities.ACCENT;
-        String Bo = ColorUtilities.BOLD;
-        String U  = ColorUtilities.UNDERLINE;
-        String R  = ColorUtilities.RESET;
+        String B  = ConsoleUtilities.BORDER;
+        String A  = ConsoleUtilities.ACCENT;
+        String Bo = ConsoleUtilities.BOLD;
+        String U  = ConsoleUtilities.UNDERLINE;
+        String R  = ConsoleUtilities.RESET;
 
         System.out.println();
         System.out.println(B + "╔══════════════════════════════╗");
@@ -76,11 +73,11 @@ public class Menus {
     }
 
     public static void reportsMenu() {
-        String B  = ColorUtilities.BORDER;
-        String A  = ColorUtilities.ACCENT;
-        String Bo = ColorUtilities.BOLD;
-        String U  = ColorUtilities.UNDERLINE;
-        String R  = ColorUtilities.RESET;
+        String B  = ConsoleUtilities.BORDER;
+        String A  = ConsoleUtilities.ACCENT;
+        String Bo = ConsoleUtilities.BOLD;
+        String U  = ConsoleUtilities.UNDERLINE;
+        String R  = ConsoleUtilities.RESET;
 
         System.out.println();
         System.out.println(B + "╔══════════════════════════════╗");
@@ -99,11 +96,11 @@ public class Menus {
     }
 
     public static void transTypeMenu() {
-        String B  = ColorUtilities.BORDER;
-        String A  = ColorUtilities.ACCENT;
-        String Bo = ColorUtilities.BOLD;
-        String U  = ColorUtilities.UNDERLINE;
-        String R  = ColorUtilities.RESET;
+        String B  = ConsoleUtilities.BORDER;
+        String A  = ConsoleUtilities.ACCENT;
+        String Bo = ConsoleUtilities.BOLD;
+        String U  = ConsoleUtilities.UNDERLINE;
+        String R  = ConsoleUtilities.RESET;
 
         System.out.println();
         System.out.println(B + "╔══════════════════════════════╗");
@@ -118,11 +115,11 @@ public class Menus {
     }
 
     public static void editValuesMenu() {
-        String B  = ColorUtilities.BORDER;
-        String A  = ColorUtilities.ACCENT;
-        String Bo = ColorUtilities.BOLD;
-        String U  = ColorUtilities.UNDERLINE;
-        String R  = ColorUtilities.RESET;
+        String B  = ConsoleUtilities.BORDER;
+        String A  = ConsoleUtilities.ACCENT;
+        String Bo = ConsoleUtilities.BOLD;
+        String U  = ConsoleUtilities.UNDERLINE;
+        String R  = ConsoleUtilities.RESET;
 
         System.out.println();
         System.out.println(B + "╔══════════════════════════════╗");
@@ -141,11 +138,11 @@ public class Menus {
     }
 
     public static void customSearchOptions(SearchCriteria criteria) {
-        String B = ColorUtilities.BORDER;
-        String A = ColorUtilities.ACCENT;
-        String Bo = ColorUtilities.BOLD;
-        String U = ColorUtilities.UNDERLINE;
-        String R = ColorUtilities.RESET;
+        String B = ConsoleUtilities.BORDER;
+        String A = ConsoleUtilities.ACCENT;
+        String Bo = ConsoleUtilities.BOLD;
+        String U = ConsoleUtilities.UNDERLINE;
+        String R = ConsoleUtilities.RESET;
         NumberFormat money = NumberFormat.getCurrencyInstance();
 
         System.out.println();
@@ -168,14 +165,14 @@ public class Menus {
     }
 
     public static void displayTransactions(List<Transaction> transactions) {
-        String B = ColorUtilities.BORDER;
-        String A = ColorUtilities.ACCENT;
-        String M = ColorUtilities.MUTED;
-        String R = ColorUtilities.RESET;
+        String B = ConsoleUtilities.BORDER;
+        String A = ConsoleUtilities.ACCENT;
+        String M = ConsoleUtilities.MUTED;
+        String R = ConsoleUtilities.RESET;
         NumberFormat money = NumberFormat.getCurrencyInstance();
 
         if (transactions.isEmpty()) {
-            System.out.println(ColorUtilities.WARNING + "No transactions to display.");
+            System.out.println(ConsoleUtilities.WARNING + "No transactions to display.");
             return;
         }
 
@@ -197,7 +194,7 @@ public class Menus {
             for (int i = start; i < end; i++) {
                 Transaction transaction = transactions.get(i);
 
-                String amountColor = transaction.isDeposit() ? ColorUtilities.SUCCESS : ColorUtilities.DANGER;
+                String amountColor = transaction.isDeposit() ? ConsoleUtilities.SUCCESS : ConsoleUtilities.DANGER;
 
                 System.out.printf(B + "║" + R + " %-11s" + B + "║" + M + " %-9s" + B + "║" + R + " %-30s " + B + "║" + R + " %-25s " + B + "║" + amountColor + "%12s" + B + " ║%n",
                         transaction.getDate(),

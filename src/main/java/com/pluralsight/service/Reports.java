@@ -3,12 +3,10 @@ package com.pluralsight.service;
 
 import com.pluralsight.model.SearchCriteria;
 import com.pluralsight.model.Transaction;
-import com.pluralsight.util.ColorUtilities;
 import com.pluralsight.util.UserInput;
 import com.pluralsight.ui.Menus;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 

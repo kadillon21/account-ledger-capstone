@@ -4,10 +4,9 @@ import com.pluralsight.model.Transaction;
 import com.pluralsight.service.Ledger;
 import com.pluralsight.service.Reports;
 import com.pluralsight.ui.Menus;
-import com.pluralsight.util.ColorUtilities;
+import com.pluralsight.util.ConsoleUtilities;
 import com.pluralsight.util.UserInput;
 
-import java.awt.*;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,6 +19,9 @@ public class AppController {
     public void run(){
 
         ledger.loadTransactions();
+        ConsoleUtilities.showProgressBar("Loading", 3000);
+        ConsoleUtilities.spin("Loading", 3000);
+        Menus.displayDashboard(ledger);
         handleHomeScreen();
 
     }
@@ -107,12 +109,12 @@ public class AppController {
         NumberFormat money = NumberFormat.getCurrencyInstance();
         boolean switchRunning = true;
 
-        System.out.println(ColorUtilities.BOLD + "\nConfirm:");
-        System.out.println(ColorUtilities.ACCENT + "  Date        " + ColorUtilities.RESET + date);
-        System.out.println(ColorUtilities.ACCENT + "  Time        " + ColorUtilities.RESET + time);
-        System.out.println(ColorUtilities.ACCENT + "  Description " + ColorUtilities.RESET + description);
-        System.out.println(ColorUtilities.ACCENT + "  Vendor      " + ColorUtilities.RESET + vendor);
-        System.out.println(ColorUtilities.ACCENT + "  Amount      " + ColorUtilities.BRIGHT_GREEN + money.format(amount) + ColorUtilities.RESET);
+        System.out.println(ConsoleUtilities.BOLD + "\nConfirm:");
+        System.out.println(ConsoleUtilities.ACCENT + "  Date        " + ConsoleUtilities.RESET + date);
+        System.out.println(ConsoleUtilities.ACCENT + "  Time        " + ConsoleUtilities.RESET + time);
+        System.out.println(ConsoleUtilities.ACCENT + "  Description " + ConsoleUtilities.RESET + description);
+        System.out.println(ConsoleUtilities.ACCENT + "  Vendor      " + ConsoleUtilities.RESET + vendor);
+        System.out.println(ConsoleUtilities.ACCENT + "  Amount      " + ConsoleUtilities.BRIGHT_GREEN + money.format(amount) + ConsoleUtilities.RESET);
 
         while (switchRunning) {
             switch (UserInput.promptForChar("\nSave this transactions? [Y/n] ", "YN")) {
@@ -141,11 +143,11 @@ public class AppController {
         boolean switchRunning = true;
 
         System.out.println("Confirm:");
-        System.out.println(ColorUtilities.ACCENT + "  Date:        " + ColorUtilities.RESET + date);
-        System.out.println(ColorUtilities.ACCENT + "  Time:        " + ColorUtilities.RESET + time);
-        System.out.println(ColorUtilities.ACCENT + "  Description: " + ColorUtilities.RESET + description);
-        System.out.println(ColorUtilities.ACCENT + "  Vendor:      " + ColorUtilities.RESET + vendor);
-        System.out.println(ColorUtilities.ACCENT + "  Amount:      " + ColorUtilities.BRIGHT_RED + money.format(amount) + ColorUtilities.RESET);
+        System.out.println(ConsoleUtilities.ACCENT + "  Date:        " + ConsoleUtilities.RESET + date);
+        System.out.println(ConsoleUtilities.ACCENT + "  Time:        " + ConsoleUtilities.RESET + time);
+        System.out.println(ConsoleUtilities.ACCENT + "  Description: " + ConsoleUtilities.RESET + description);
+        System.out.println(ConsoleUtilities.ACCENT + "  Vendor:      " + ConsoleUtilities.RESET + vendor);
+        System.out.println(ConsoleUtilities.ACCENT + "  Amount:      " + ConsoleUtilities.BRIGHT_RED + money.format(amount) + ConsoleUtilities.RESET);
 
         while (switchRunning) {
             switch (UserInput.promptForChar("\nSave this transactions? [Y/n] ", "YN")) {
