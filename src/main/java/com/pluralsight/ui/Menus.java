@@ -26,7 +26,6 @@ public class Menus {
         System.out.printf(B + "║  MTD Expenses:   " + ConsoleUtilities.RED + "%-35s" + B + "║%n", money.format(ledger.getMonthToDateExpenses()));
         System.out.printf(B + "║  Transactions:   %-35d" + B + "║%n", ledger.getTransactionCount());
         System.out.println(B + "╚" + "═════════════════════════════════════════════════════" + "╝" + R);
-        System.out.println();
     }
 
     public static void mainMenu() {
@@ -36,6 +35,7 @@ public class Menus {
         String U  = ConsoleUtilities.UNDERLINE;
         String R  = ConsoleUtilities.RESET;
 
+        System.out.println();
         System.out.println(B + "╔══════════════════════════════╗");
         System.out.println(B + "║  " + Bo + U + R + "    ACCOUNTING LEDGER       " + R + B + "║");
         System.out.println(B + "╠══════════════════════════════╣");
