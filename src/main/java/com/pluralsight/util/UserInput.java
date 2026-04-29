@@ -26,11 +26,11 @@ public class UserInput {
                     inputValid = true;
                 } else if (value <= min) {
                     System.out.print(ConsoleUtilities.ERROR);
-                    System.out.println(" The valid you entered was too little...");
+                    System.out.println(" The value you entered was too little...");
                     System.out.print(prompt);
                 } else {
                     System.out.print(ConsoleUtilities.ERROR);
-                    System.out.println(" The valid you entered was too high...");
+                    System.out.println(" The value you entered was too high...");
                     System.out.print(prompt);
                 }
             } catch(Exception e) {
@@ -57,11 +57,11 @@ public class UserInput {
                     inputValid = true;
                 } else if (value <= min) {
                     System.out.print(ConsoleUtilities.ERROR);
-                    System.out.println(" The valid you entered was too little...");
+                    System.out.println(" The value you entered was too little...");
                     System.out.print(prompt);
                 } else {
                     System.out.print(ConsoleUtilities.ERROR);
-                    System.out.println(" The valid you entered was too high...");
+                    System.out.println(" The value you entered was too high...");
                     System.out.print(prompt);
                 }
             } catch (Exception e){
@@ -89,7 +89,7 @@ public class UserInput {
                     inputValid = true;
                 } else {
                     System.out.print(ConsoleUtilities.ERROR);
-                    System.out.println(" The valid you entered was too little...");
+                    System.out.println(" The value you entered was too little...");
                     System.out.print(prompt);
                 }
             } catch (NumberFormatException e) {

@@ -96,11 +96,11 @@ public class Ledger {
     public double getMonthToDateExpenses() {
         LocalDate now = LocalDate.now();
         LocalDate startOfMonth = now.withDayOfMonth(1);
-        return transactions.stream()
+        return Math.abs(transactions.stream()
                 .filter(t -> !t.getDate().isBefore(startOfMonth))
                 .filter(Transaction::isPayment)
                 .mapToDouble(Transaction::getAmount)
-                .sum();
+                .sum());
     }
 
     public int getTransactionCount() {
