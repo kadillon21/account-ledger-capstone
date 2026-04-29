@@ -14,7 +14,6 @@ import java.util.List;
 
 public class Reports {
 
-    static SearchCriteria searchCriteria = new SearchCriteria();
 
     public static void monthToDateReport(List<Transaction> transactions) {
         LocalDate now = LocalDate.now();
@@ -59,68 +58,72 @@ public class Reports {
         List<Transaction> filtered = transactions.stream().filter(
                 transaction -> transaction.getVendor().equalsIgnoreCase(comparator)).toList();
 
-        if(filtered.isEmpty()){
+        if (filtered.isEmpty()) {
             System.out.println("\nNo files to display");
         } else {
+            Menus.displayTransactions(filtered);
+        }
+    }
+
+    public static void customSearch(List<Transaction> transactions) {
+
+        SearchCriteria criteria = new SearchCriteria();
+        boolean editing = true;
+
+        while (editing) {
+            Menus.customSearchOptions(criteria);
+            switch (UserInput.promptForChar("Your choice ")) {
+                case 'E':
+                    editCriteria(criteria);
+                    break;
+                case 'S':
+                    editing = false;
+                    break;
+                case 'X':
+                    return;
+            }
+        }
+
+        List<Transaction> filtered = transactions.stream().filter(criteria::matches).toList();
         Menus.displayTransactions(filtered);
+
+
+    }
+
+
+    public static void editCriteria(SearchCriteria criteria) {
+        Menus.editValuesMenu();
+        switch (UserInput.promptForInt("What would you like to change? ", 1, 7)) {
+            case 1:
+                criteria.setStartDate(UserInput.promptForDate("Start date [YYYY-MM-DD] "));
+                break;
+            case 2:
+                criteria.setEndDate(UserInput.promptForDate("End date [YYYY-MM-DD] "));
+                break;
+            case 3:
+                criteria.setDescription(UserInput.promptForString("Description "));
+                break;
+            case 4:
+                criteria.setDescription(UserInput.promptForString("Vendor name "));
+                break;
+            case 5:
+                criteria.setMinAmount(UserInput.promptForDouble("Min Value ", 1));
+                break;
+            case 6:
+                criteria.setMaxAmount(UserInput.promptForDouble("Max Value", 1));
+                break;
+            case 7:
+                Menus.transTypeMenu();
+                switch (UserInput.promptForChar("Your choice ")){
+                    case 'A':
+                        criteria.setTransType("(any)");
+                    case 'D':
+                        criteria.setTransType("Deposits");
+                    case 'P':
+                        criteria.setTransType("Payments");
+                }
+                break;
+
         }
-    }
-
-    public static void customSearch(List<Transaction> transactions){
-
-        Menus.customSearchMenu();
-
-        switch (UserInput.promptForChar("Your choice ")){
-            case 'A':
-                Menus.customSearchOptions(searchCriteria.getStartDate(), searchCriteria.getEndDate(), searchCriteria.getDescription(), searchCriteria.getVendor());
-                customSearchMenuOptions();
-                break;
-            case 'D':
-                Menus.customSearchOptions(searchCriteria.getStartDate(), searchCriteria.getEndDate(), searchCriteria.getDescription(), searchCriteria.getVendor());
-                break;
-            case 'P':
-                Menus.customSearchOptions(searchCriteria.getStartDate(), searchCriteria.getEndDate(), searchCriteria.getDescription(), searchCriteria.getVendor(), searchCriteria.getMinAmount(), searchCriteria.getMaxAmount());
-                break;
-
-        }
-
-    }
-
-    public static void allSearch(List<Transaction> transactions){
-
-
-    }
-
-    public static void customSearchMenuOptions(){
-       switch (UserInput.promptForChar("Your choice ")){
-           case 'E':
-               Menus.editValuesMenu();
-               switch (UserInput.promptForInt("What would you like to change? ", 1,6)){
-                   case 1:
-                       searchCriteria.setStartDate(UserInput.promptForDate("Start date [YYYY-MM-DD] "));
-                       break;
-                   case 2:
-                       searchCriteria.setEndDate(UserInput.promptForDate("End date [YYYY-MM-DD] "));
-                       break;
-                   case 3:
-                       searchCriteria.setDescription(UserInput.promptForString("Description "));
-                       break;
-                   case 4:
-                       searchCriteria.setDescription(UserInput.promptForString("Vendor name "));
-                       break;
-                   case 5:
-                       searchCriteria.setMinAmount(UserInput.promptForDouble("Min Value ", 1));
-                       break;
-                   case 6:
-                       searchCriteria.setMaxAmount(UserInput.promptForDouble("Max Value", 1));
-                       break;
-               }
-               break;
-           case 'S':
-               Menus.mainMenu();
-               break;
-           case 'X':
-               break;
-       }
     }
 }

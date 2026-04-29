@@ -5,22 +5,24 @@ import java.time.LocalDate;
 public class SearchCriteria {
     private LocalDate startDate;
     private LocalDate endDate;
-    private String description = "";
-    private String vendor = "";
-    private Double minAmount;
-    private Double maxAmount;
+    private String description;
+    private String vendor;
+    private Double minAmount = 10000.00;
+    private Double maxAmount = 100000.00;
+    private String transType;
 
     public SearchCriteria(){
 
     }
 
-    public SearchCriteria(LocalDate startDate, LocalDate endDate, String description, String vendor, Double minAmount, Double maxAmount) {
+    public SearchCriteria(LocalDate startDate, LocalDate endDate, String description, String vendor, Double minAmount, Double maxAmount, String transType) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.description = description;
         this.vendor = vendor;
         this.minAmount = minAmount;
         this.maxAmount = maxAmount;
+        this.transType = transType;
     }
 
     public LocalDate getStartDate() {
@@ -71,6 +73,14 @@ public class SearchCriteria {
         this.maxAmount = maxAmount;
     }
 
+    public String getTransType() {
+        return transType;
+    }
+
+    public void setTransType(String transType) {
+        this.transType = transType;
+    }
+
     public boolean matches(Transaction t) {
         if (startDate != null && t.getDate().isBefore(startDate)) return false;
         if (endDate != null && t.getDate().isAfter(endDate)) return false;
@@ -80,6 +90,8 @@ public class SearchCriteria {
                 !t.getDescription().toLowerCase().contains(description.toLowerCase())) return false;
         if (minAmount != null && t.getAmount() < minAmount) return false;
         if (maxAmount != null && t.getAmount() > maxAmount) return false;
+        if ("PAYMENTS".equalsIgnoreCase(transType) && t.getAmount() >= 0) return false;
+        if ("DEPOSITS".equalsIgnoreCase(transType) && t.getAmount() <= 0) return false;
         return true;
     }
 }

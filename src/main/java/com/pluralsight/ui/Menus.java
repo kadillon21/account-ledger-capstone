@@ -1,5 +1,6 @@
 package com.pluralsight.ui;
 
+import com.pluralsight.model.SearchCriteria;
 import com.pluralsight.model.Transaction;
 import com.pluralsight.util.ColorUtilities;
 
@@ -73,7 +74,7 @@ public class Menus {
         System.out.println(B + "╚══════════════════════════════╝" + R);
     }
 
-    public static void customSearchMenu() {
+    public static void transTypeMenu() {
         String B  = ColorUtilities.BORDER;
         String A  = ColorUtilities.ACCENT;
         String Bo = ColorUtilities.BOLD;
@@ -88,7 +89,6 @@ public class Menus {
         System.out.println(B + "║  " + A + "A" + R + ")  All Transactions        " + B + "║");
         System.out.println(B + "║  " + A + "D" + R + ")  Deposits                " + B + "║");
         System.out.println(B + "║  " + A + "P" + R + ")  Payments                " + B + "║");
-        System.out.println(B + "║  " + A + "X" + R + ")  Exit                    " + B + "║");
         System.out.println(B + "║                              ║");
         System.out.println(B + "╚══════════════════════════════╝" + R);
     }
@@ -115,51 +115,26 @@ public class Menus {
         System.out.println(B + "╚══════════════════════════════╝" + R);
     }
 
-    public static void customSearchOptions(LocalDate startDate, LocalDate endDate, String description, String vendor, double min, double max) {
-        String B  = ColorUtilities.BORDER;
-        String A  = ColorUtilities.ACCENT;
-        String Bo = ColorUtilities.BOLD;
-        String U  = ColorUtilities.UNDERLINE;
-        String R  = ColorUtilities.RESET;
-
-        System.out.println();
-        System.out.println(B + "╔════════════════════════════════════════════════════════════╗");
-        System.out.println(B + "║     " + Bo + U + R + "                  Custom Search Menu                    " + R + B + "║");
-        System.out.println(B + "╠════════════════════════════════════════════════════════════╣");
-        System.out.println(B + "║                                                            ║");
-        System.out.println(B + "║  Start Date:                                               " + B + "║");
-        System.out.println(B + "║  End Date:                                                 " + B + "║");
-        System.out.println(B + "║  Description:                                              " + B + "║");
-        System.out.println(B + "║  Vendor:                                                   " + B + "║");
-        System.out.println(B + "║  Min Value:                                                " + B + "║");
-        System.out.println(B + "║  Max Value:                                                " + B + "║");
-        System.out.println(B + "║                                                            ║");
-        System.out.println(B + "║  " + A + "E" + R + ")  Edit Values                                           " + B + "║");
-        System.out.println(B + "║  " + A + "S" + R + ")  Search                                                " + B + "║");
-        System.out.println(B + "║  " + A + "X" + R + ")  Cancel                                                " + B + "║");
-        System.out.println(B + "║                                                            ║");
-        System.out.println(B + "╚════════════════════════════════════════════════════════════╝" + R);
-
-
-    }
-
-    public static void customSearchOptions(LocalDate startDate, LocalDate endDate, String description, String vendor) {
+    public static void customSearchOptions(SearchCriteria criteria) {
         String B = ColorUtilities.BORDER;
         String A = ColorUtilities.ACCENT;
         String Bo = ColorUtilities.BOLD;
         String U = ColorUtilities.UNDERLINE;
         String R = ColorUtilities.RESET;
+        NumberFormat money = NumberFormat.getCurrencyInstance();
 
         System.out.println();
         System.out.println(B + "╔════════════════════════════════════════════════════════════╗");
-        System.out.println(B + "║     " + Bo + U + R + "                  Custom Search Menu                  " + R + B + "║");
+        System.out.println(B + "║     " + Bo + U + R + "                  Custom Search Menu                   " + R + B + "║");
         System.out.println(B + "╠════════════════════════════════════════════════════════════╣");
         System.out.println(B + "║                                                            ║");
-        System.out.println(B + "║  Start Date:                                               " + B + "║");
-        System.out.println(B + "║  End Date:                                                 " + B + "║");
-        System.out.println(B + "║  Description:                                              " + B + "║");
-        System.out.println(B + "║  Vendor:                                                   " + B + "║");
-        System.out.println(B + "║                                                            ║");
+        System.out.printf( B + "║  Start Date: " + A + "%-46s" + B + "║%n", displayValue(criteria.getStartDate()));
+        System.out.printf( B + "║  End Date: " + A + "%-48s" + B + "║%n", displayValue(criteria.getEndDate()));
+        System.out.printf( B + "║  Description: " + A + "%-45s" + B + "║%n", displayValue(criteria.getDescription()));
+        System.out.printf( B + "║  Vendor: " + A + "%-50s" + B + "║%n",displayValue(criteria.getVendor()));
+        System.out.printf( B + "║  Min Amount: " + A + "%-46s" + B + "║%n", money.format(criteria.getMinAmount()));
+        System.out.printf( B + "║  Max Amount: " + A + "%-46s" + B + "║%n", money.format(criteria.getMaxAmount()));
+        System.out.printf( B + "║  Transaction Type: " + A + "%-40s" + B + "║%n", displayValue(criteria.getTransType()));
         System.out.println(B + "║  " + A + "E" + R + ")  Edit Values                                           " + B + "║");
         System.out.println(B + "║  " + A + "S" + R + ")  Search                                                " + B + "║");
         System.out.println(B + "║  " + A + "X" + R + ")  Cancel                                                " + B + "║");
@@ -181,15 +156,15 @@ public class Menus {
         System.out.println(B + "╠════════════╬══════════╬════════════════════════════════╬═══════════════════════════╬═════════════╣");
 
         for (int i = transactions.size() - 1; i >= 0; i--) {
-            Transaction t = transactions.get(i);
-            String amountColor = t.isDeposit() ? ColorUtilities.SUCCESS : ColorUtilities.DANGER;
+            Transaction transaction = transactions.get(i);
+            String amountColor = transaction.isDeposit() ? ColorUtilities.SUCCESS : ColorUtilities.DANGER;
 
             System.out.printf(B + "║" + R + " %-11s" + B + "║" + M + " %-9s" + B + "║" + R + " %-30s " + B + "║" + R + " %-25s " + B + "║" + amountColor + "%12s" + B + " ║%n",
-                    t.getDate(),
-                    t.getTime(),
-                    truncate(t.getDescription(), 29),
-                    truncate(t.getVendor(), 24),
-                    money.format(t.getAmount())
+                    transaction.getDate(),
+                    transaction.getTime(),
+                    truncate(transaction.getDescription(), 29),
+                    truncate(transaction.getVendor(), 24),
+                    money.format(transaction.getAmount())
             );
         }
 
@@ -211,6 +186,12 @@ public class Menus {
     public static String truncate(String s, int maxLen) {
         if (s.length() <= maxLen) return s;
         return s.substring(0, maxLen - 3) + "... ";
+    }
+
+    private static String displayValue(Object value) {
+        if (value == null) return "(any)";
+        if (value.toString().isEmpty()) return "(any)";
+        return value.toString();
     }
 
 }
