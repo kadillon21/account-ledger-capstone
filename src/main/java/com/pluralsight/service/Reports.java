@@ -3,6 +3,7 @@ package com.pluralsight.service;
 
 import com.pluralsight.model.SearchCriteria;
 import com.pluralsight.model.Transaction;
+import com.pluralsight.util.ColorUtilities;
 import com.pluralsight.util.UserInput;
 import com.pluralsight.ui.Menus;
 
@@ -72,7 +73,7 @@ public class Reports {
 
         while (editing) {
             Menus.customSearchOptions(criteria);
-            switch (UserInput.promptForChar("Your choice ")) {
+            switch (UserInput.promptForChar("Your choice ", "ESX")) {
                 case 'E':
                     editCriteria(criteria);
                     break;
@@ -104,7 +105,7 @@ public class Reports {
                 criteria.setDescription(UserInput.promptForString("Description "));
                 break;
             case 4:
-                criteria.setDescription(UserInput.promptForString("Vendor name "));
+                criteria.setVendor(UserInput.promptForString("Vendor name "));
                 break;
             case 5:
                 criteria.setMinAmount(UserInput.promptForDouble("Min Value ", 1));
@@ -114,7 +115,7 @@ public class Reports {
                 break;
             case 7:
                 Menus.transTypeMenu();
-                switch (UserInput.promptForChar("Your choice ")){
+                switch (UserInput.promptForChar("Your choice ", "ADP")){
                     case 'A':
                         criteria.setTransType("(any)");
                     case 'D':

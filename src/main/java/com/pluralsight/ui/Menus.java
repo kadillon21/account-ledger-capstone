@@ -111,6 +111,7 @@ public class Menus {
         System.out.println(B + "║  " + A + "4" + R + ")  Vendor                  " + B + "║");
         System.out.println(B + "║  " + A + "5" + R + ")  Min Value               " + B + "║");
         System.out.println(B + "║  " + A + "6" + R + ")  Max Value               " + B + "║");
+        System.out.println(B + "║  " + A + "7" + R + ")  Transaction type        " + B + "║");
         System.out.println(B + "║                              ║");
         System.out.println(B + "╚══════════════════════════════╝" + R);
     }

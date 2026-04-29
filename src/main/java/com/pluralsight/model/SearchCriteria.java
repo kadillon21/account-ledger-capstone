@@ -81,17 +81,18 @@ public class SearchCriteria {
         this.transType = transType;
     }
 
-    public boolean matches(Transaction t) {
-        if (startDate != null && t.getDate().isBefore(startDate)) return false;
-        if (endDate != null && t.getDate().isAfter(endDate)) return false;
+    public boolean matches(Transaction transaction) {
+        if (startDate != null && transaction.getDate().isBefore(startDate)) return false;
+        if (endDate != null && transaction.getDate().isAfter(endDate)) return false;
         if (vendor != null && !vendor.isEmpty() &&
-                !t.getVendor().equalsIgnoreCase(vendor)) return false;
+                !transaction.getVendor().toLowerCase().contains(vendor.toLowerCase())) return false;
         if (description != null && !description.isEmpty() &&
-                !t.getDescription().toLowerCase().contains(description.toLowerCase())) return false;
-        if (minAmount != null && t.getAmount() < minAmount) return false;
-        if (maxAmount != null && t.getAmount() > maxAmount) return false;
-        if ("PAYMENTS".equalsIgnoreCase(transType) && t.getAmount() >= 0) return false;
-        if ("DEPOSITS".equalsIgnoreCase(transType) && t.getAmount() <= 0) return false;
+                !transaction.getDescription().toLowerCase().contains(description.toLowerCase())) return false;
+
+        if (minAmount != null && Math.abs(transaction.getAmount()) < minAmount) return false;
+        if (maxAmount != null && Math.abs(transaction.getAmount()) > maxAmount) return false;
+        if ("PAYMENTS".equalsIgnoreCase(transType) && transaction.getAmount() >= 0) return false;
+        if ("DEPOSITS".equalsIgnoreCase(transType) && transaction.getAmount() <= 0) return false;
         return true;
     }
 }

@@ -139,12 +139,22 @@ public class UserInput {
                 returnValue = input.charAt(0);
                 inputValid = true;
             } else {
-                System.out.print(ColorUtilities.ERROR);
-                System.out.println(" You did not enter a valid menu option");
+                System.out.println(ColorUtilities.ERROR + "You did not enter a valid menu option");
                 System.out.println(prompt);
             }
         }
         return returnValue;
+    }
+
+    public static char promptForChar(String prompt, String validChars) {
+        String valid = validChars.toUpperCase();
+        while (true) {
+            char input = promptForChar(prompt);
+            if (valid.indexOf(input) >= 0) {
+                return input;
+            }
+            System.out.println(ColorUtilities.ERROR + " Invalid choice... Try again");
+        }
     }
 
 

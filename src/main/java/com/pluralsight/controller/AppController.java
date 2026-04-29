@@ -28,7 +28,7 @@ public class AppController {
         boolean onHomeScreen = true;
         while (onHomeScreen) {
             Menus.mainMenu();
-            switch (UserInput.promptForChar("Your choice ")) {
+            switch (UserInput.promptForChar("Your choice ", "DPLX")) {
                 case 'D':
                     addDeposit(ledger);
                     break;
@@ -48,7 +48,7 @@ public class AppController {
         boolean onLedgerScreen = true;
         while (onLedgerScreen) {
             Menus.ledgerMenu();
-            switch (UserInput.promptForChar("Your choice ")) {
+            switch (UserInput.promptForChar("Your choice ", "ADPRH")) {
                 case 'A':
                     Menus.displayTransactions(ledger.getLedger());
                     break;
@@ -115,7 +115,7 @@ public class AppController {
         System.out.println(ColorUtilities.ACCENT + "  Amount      " + ColorUtilities.BRIGHT_GREEN + money.format(amount) + ColorUtilities.RESET);
 
         while (switchRunning) {
-            switch (UserInput.promptForChar("\nSave this transactions? [Y/n] ")) {
+            switch (UserInput.promptForChar("\nSave this transactions? [Y/n] ", "YN")) {
                 case 'Y':
                     ledger.saveTransaction(new Transaction(date, time, description, vendor, amount));
                     switchRunning = false;
@@ -123,9 +123,6 @@ public class AppController {
                 case 'N':
                     System.out.println("Transaction Canceled. Returning to home...");
                     switchRunning = false;
-                    break;
-                default:
-                    System.out.println(ColorUtilities.ERROR + "You did not enter a valid menu option try again");
                     break;
 
             }
@@ -151,7 +148,7 @@ public class AppController {
         System.out.println(ColorUtilities.ACCENT + "  Amount:      " + ColorUtilities.BRIGHT_RED + money.format(amount) + ColorUtilities.RESET);
 
         while (switchRunning) {
-            switch (UserInput.promptForChar("\nSave this transactions? [Y/n] ")) {
+            switch (UserInput.promptForChar("\nSave this transactions? [Y/n] ", "YN")) {
                 case 'Y':
                     ledger.saveTransaction(new Transaction(date, time, description, vendor, amount));
                     switchRunning = false;
@@ -160,10 +157,6 @@ public class AppController {
                     System.out.println("Transaction Canceled. Returning to home...");
                     switchRunning = false;
                     break;
-                default:
-                    System.out.println(ColorUtilities.ERROR + "You did not enter a valid menu option try again");
-                    break;
-
             }
         }
 
