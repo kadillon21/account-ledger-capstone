@@ -15,12 +15,10 @@ import java.time.temporal.ChronoUnit;
 public class AppController {
 
     private final Ledger ledger = new Ledger();
-    private boolean programmRunning = true;
     public void run(){
 
         ledger.loadTransactions();
-        ConsoleUtilities.showProgressBar("Loading", 3000);
-        ConsoleUtilities.spin("Loading", 3000);
+        ConsoleUtilities.showProgressBar("Loading Account Ledger...", 3000);
         Menus.displayDashboard(ledger);
         handleHomeScreen();
 
@@ -161,10 +159,6 @@ public class AppController {
                     break;
             }
         }
-
-    }
-
-    public static void showAccountOverview(){
 
     }
 

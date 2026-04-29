@@ -14,8 +14,6 @@ public class Menus {
     public static void displayDashboard(Ledger ledger) {
         String B  = ConsoleUtilities.BORDER;
         String A  = ConsoleUtilities.ACCENT;
-        String Bo = ConsoleUtilities.BOLD;
-        String U  = ConsoleUtilities.UNDERLINE;
         String R  = ConsoleUtilities.RESET;
 
         double balance = ledger.getBalance();
@@ -24,11 +22,11 @@ public class Menus {
 
         System.out.println();
         System.out.println(B + "╔═ QUICK STATS " + "═══════════════════════════════════════"+ "╗");
-        System.out.printf(B + "║  Balance:        " + A + "%-35s" + B + "║%n", money.format(balance));
+        System.out.printf(B + "║  Balance:        " + balanceColor + "%-35s" + B + "║%n", money.format(balance));
         System.out.printf(B + "║  MTD Income:     " + ConsoleUtilities.GREEN + "%-35s" + B + "║%n", money.format(ledger.getMonthToDateIncome()));
         System.out.printf(B + "║  MTD Expenses:   " + ConsoleUtilities.RED + "%-35s" + B + "║%n", money.format(ledger.getMonthToDateExpenses()));
         System.out.printf(B + "║  Transactions:   %-35d" + B + "║%n", ledger.getTransactionCount());
-        System.out.println(B + "╚" + "═════════════════════════════════════════════════════" + "╝" + ConsoleUtilities.RESET);
+        System.out.println(B + "╚" + "═════════════════════════════════════════════════════" + "╝" + R);
         System.out.println();
     }
 
@@ -205,8 +203,7 @@ public class Menus {
                 );
             }
 
-            int count = transactions.size();
-            int digits = String.valueOf(count).length();
+            int digits = String.valueOf(transactions.size()).length();
             String spacer = switch (digits) {
                 case 1 -> "%75s║%n";
                 case 2 -> "%74s║%n";
@@ -214,10 +211,8 @@ public class Menus {
                 default -> "%72s║%n";
             };
 
-            int count2 = totalPages;
-            int count3 =  + currentPage +1;
-            int digits2 = String.valueOf(count2).length();
-            digits2 += String.valueOf(count3).length();
+            int digits2 = String.valueOf(totalPages).length();
+            digits2 += String.valueOf(currentPage + 1).length();
             String spacer2 = switch (digits2) {
                 case 2 -> "%85s║%n";
                 case 3 -> "%84s║%n";
