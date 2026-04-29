@@ -22,7 +22,7 @@ public class UserInput {
             input = scanner.nextLine();
             try{
                 value = Integer.parseInt(input);
-                if (value >= min && value <= max) {
+                if (value > min && value < max) {
                     inputValid = true;
                 } else if (value <= min) {
                     System.out.print(ConsoleUtilities.ERROR);
@@ -53,7 +53,7 @@ public class UserInput {
             input = scanner.nextLine();
             try {
                 value = Double.parseDouble(input);
-                if (value >= min && value <= max) {
+                if (value > min && value < max) {
                     inputValid = true;
                 } else if (value <= min) {
                     System.out.print(ConsoleUtilities.ERROR);
@@ -85,7 +85,7 @@ public class UserInput {
             input = scanner.nextLine();
             try {
                 value = Double.parseDouble(input);
-                if (value >= min) {
+                if (value > min) {
                     inputValid = true;
                 } else {
                     System.out.print(ConsoleUtilities.ERROR);
