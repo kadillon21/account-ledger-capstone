@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Reports {
 
-
+    // displays transaction menu that shows transactions for the current month
     public static void monthToDateReport(List<Transaction> transactions) {
         LocalDate now = LocalDate.now();
         LocalDate startOfMonth = now.withDayOfMonth(1);
@@ -23,6 +23,7 @@ public class Reports {
         Menus.displayTransactions(filtered);
     }
 
+    // displays transaction menu that shows transactions for the previous month
     public static void previousMonthReport(List<Transaction> transactions) {
         LocalDate now = LocalDate.now();
         LocalDate previousMonthStart = now.minusMonths(1).withDayOfMonth(1);
@@ -33,6 +34,7 @@ public class Reports {
         Menus.displayTransactions(filtered);
     }
 
+    // displays transaction menu that shows transactions for the current year
     public static void yearToDate(List<Transaction> transactions) {
         LocalDate now = LocalDate.now();
         LocalDate previousYearStart = now.withMonth(1).withDayOfMonth(1);
@@ -42,6 +44,7 @@ public class Reports {
         Menus.displayTransactions(filtered);
     }
 
+    // displays transaction menu that shows transactions for the previous year
     public static void previousYearReport(List<Transaction> transactions) {
         LocalDate now = LocalDate.now();
         LocalDate previousYearStart = now.minusYears(1).withMonth(1).withDayOfMonth(1);
@@ -52,10 +55,11 @@ public class Reports {
         Menus.displayTransactions(filtered);
     }
 
+    // displays transaction menu that shows transactions from chosen vendor
     public static void searchByVendor(List<Transaction> transactions) {
         String comparator = UserInput.promptForString("Vendor ");
         List<Transaction> filtered = transactions.stream().filter(
-                transaction -> transaction.getVendor().equalsIgnoreCase(comparator)).toList();
+                transaction -> transaction.getVendor().toLowerCase().contains(comparator.toLowerCase())).toList();
 
         if (filtered.isEmpty()) {
             System.out.println("\nNo transactions to display");
@@ -64,6 +68,7 @@ public class Reports {
         }
     }
 
+    // Pulls up custom search menu and allows user to edit search options
     public static void customSearch(List<Transaction> transactions) {
 
         SearchCriteria criteria = new SearchCriteria();
@@ -89,7 +94,7 @@ public class Reports {
 
     }
 
-
+    // Method to allow user to edit specific search criteria
     public static void editCriteria(SearchCriteria criteria) {
         Menus.editValuesMenu();
         switch (UserInput.promptForInt("What would you like to change? ", 1, 7)) {
