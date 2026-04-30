@@ -15,17 +15,6 @@ public class SearchCriteria {
 
     }
 
-    // Constructor for new transactions (created to make custom search easier to implement)
-    public SearchCriteria(LocalDate startDate, LocalDate endDate, String description, String vendor, Double minAmount, Double maxAmount, String transType) {
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.description = description;
-        this.vendor = vendor;
-        this.minAmount = minAmount;
-        this.maxAmount = maxAmount;
-        this.transType = transType;
-    }
-
     // All getters and setters for search criteria object
     public LocalDate getStartDate() {
         return startDate;
