@@ -10,6 +10,7 @@ public class Transaction {
     private String vendor;
     private double amount;
 
+    // Constructor for new transactions
     public Transaction(LocalDate date, LocalTime time, String description, String vendor, double amount) {
         this.date = date;
         this.time = time;
@@ -18,6 +19,7 @@ public class Transaction {
         this.amount = amount;
     }
 
+    // All getters and setters for transaction object
     public LocalDate getDate() {
         return date;
     }
@@ -38,11 +40,13 @@ public class Transaction {
         return amount;
     }
 
-    public boolean isDeposit(){
+    // checks if objects amount is > 0
+    public boolean isDeposit() {
         return amount > 0;
     }
 
-    public boolean isPayment(){
+    // checks if objects amount is < 0
+    public boolean isPayment() {
         return amount < 0;
     }
 

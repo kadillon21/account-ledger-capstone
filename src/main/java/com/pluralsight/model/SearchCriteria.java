@@ -7,14 +7,15 @@ public class SearchCriteria {
     private LocalDate endDate;
     private String description;
     private String vendor;
-    private Double minAmount = 10000.00;
-    private Double maxAmount = 100000.00;
+    private Double minAmount = 50000.00;
+    private Double maxAmount = 500000.00;
     private String transType;
 
-    public SearchCriteria(){
+    public SearchCriteria() {
 
     }
 
+    // Constructor for new transactions (created to make custom search easier to implement)
     public SearchCriteria(LocalDate startDate, LocalDate endDate, String description, String vendor, Double minAmount, Double maxAmount, String transType) {
         this.startDate = startDate;
         this.endDate = endDate;
@@ -25,6 +26,7 @@ public class SearchCriteria {
         this.transType = transType;
     }
 
+    // All getters and setters for search criteria object
     public LocalDate getStartDate() {
         return startDate;
     }
@@ -81,6 +83,7 @@ public class SearchCriteria {
         this.transType = transType;
     }
 
+    // Checks if transaction matches the criteria
     public boolean matches(Transaction transaction) {
         if (startDate != null && transaction.getDate().isBefore(startDate)) return false;
         if (endDate != null && transaction.getDate().isAfter(endDate)) return false;
