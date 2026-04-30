@@ -10,26 +10,30 @@ import java.util.List;
 
 public class Ledger {
 
+    // Stores all transactions loaded from the CSV file
     private final ArrayList<Transaction> transactions = new ArrayList<>();
 
-    public Ledger(){
+    // Initializes the ledger and loads transactions from the CSV file.
+    public Ledger() {
 
     }
 
-    public void loadTransactions(){
-        try{
+    // Reads transactions.csv and adds them to the transactions Array list
+    public void loadTransactions() {
+        try {
             FileReader fileReader = new FileReader("src/main/resources/transactions.csv");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             String input;
-            while ((input = bufferedReader.readLine()) != null){
+            // while loops through every line in transactions.csv and splits it into parts to assign to a transaction
+            while ((input = bufferedReader.readLine()) != null) {
                 String[] parts = input.split("\\|");
                 LocalDate date = LocalDate.parse(parts[0]);
                 LocalTime time = LocalTime.parse(parts[1]);
                 String description = parts[2];
                 String vendor = parts[3];
                 double amount = Double.parseDouble(parts[4]);
-                transactions.add(new Transaction(date, time, description, vendor, amount));
+                transactions.add(new Transaction(date, time, description, vendor, amount)); // creates a new transaction
             }
             bufferedReader.close();
         } catch (IOException e) {
@@ -37,15 +41,17 @@ public class Ledger {
         }
     }
 
-    public void saveTransaction(Transaction t){
-        transactions.add(t);
+    // Saves transaction to transactions.csv and adds it to the list
+    public void saveTransaction(Transaction transaction) {
+        transactions.add(transaction);
 
         try {
             FileWriter fileWriter = new FileWriter("src/main/resources/transactions.csv", true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
+            // Creates new line, writes to new line in formate date|time|description|vendor|amount
             bufferedWriter.newLine();
-            bufferedWriter.write(t.getDate() + "|" + t.getTime() + "|" + t.getDescription() + "|" + t.getVendor() + "|" + t.getAmount());
+            bufferedWriter.write(transaction.getDate() + "|" + transaction.getTime() + "|" + transaction.getDescription() + "|" + transaction.getVendor() + "|" + transaction.getAmount());
             bufferedWriter.close();
 
         } catch (IOException e) {
@@ -53,36 +59,41 @@ public class Ledger {
         }
     }
 
-    public List<Transaction> getDeposits(){
+    // Returns a list of deposits
+    public List<Transaction> getDeposits() {
 
-        List<Transaction> result = new ArrayList<>();
+        List<Transaction> deposits = new ArrayList<>();
 
-        for(Transaction t : transactions){
-            if(t.isDeposit()){
-                result.add(t);
+        // loops through transactions and checks if it is a deposit and if it is them adds it to the new list
+        for (Transaction transaction : transactions) {
+            if (transaction.isDeposit()) {
+                deposits.add(transaction);
             }
         }
-        return result;
+        return deposits; // returns deposits
 
     }
 
-    public List<Transaction> getPayments(){
+    // Returns a list of payments (same logic as above but swapped for payments)
+    public List<Transaction> getPayments() {
 
-        List<Transaction> result = new ArrayList<>();
+        List<Transaction> payments = new ArrayList<>();
 
-        for(Transaction t : transactions){
-            if(t.isPayment()){
-                result.add(t);
+        for (Transaction transaction : transactions) {
+            if (transaction.isPayment()) {
+                payments.add(transaction);
             }
         }
-        return result;
+        return payments;
 
     }
 
+    // adds all amounts and returns a sum (used for quick stats)
     public double getBalance() {
         return transactions.stream().mapToDouble(Transaction::getAmount).sum();
     }
 
+    // Gets income from the current month (used for quick stats)
     public double getMonthToDateIncome() {
         LocalDate now = LocalDate.now();
         LocalDate startOfMonth = now.withDayOfMonth(1);
@@ -93,6 +104,7 @@ public class Ledger {
                 .sum();
     }
 
+    // Gets expenses for the current month (used for quick stats)
     public double getMonthToDateExpenses() {
         LocalDate now = LocalDate.now();
         LocalDate startOfMonth = now.withDayOfMonth(1);
@@ -103,15 +115,15 @@ public class Ledger {
                 .sum());
     }
 
+    // Gets total amount of transactions (used for quick stats)
     public int getTransactionCount() {
         return transactions.size();
     }
 
-    public ArrayList<Transaction> getLedger(){
+    // Returns a list of transactions
+    public ArrayList<Transaction> getLedger() {
         return transactions;
     }
-
-
 
 
 }
