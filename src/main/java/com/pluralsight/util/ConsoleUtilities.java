@@ -6,7 +6,6 @@ public class ConsoleUtilities {
     public static final String RESET = "\u001B[0m";
 
 
-
     // Text styles
     public static final String BOLD = "\u001B[1m";
     public static final String STRIKETHROUGH = "\u001B[9m";
@@ -25,6 +24,7 @@ public class ConsoleUtilities {
 
     // Common Phrases
     public static final String ERROR = ConsoleUtilities.BRIGHT_RED + ConsoleUtilities.BOLD + "ERROR: " + ConsoleUtilities.RESET;
+
     private ConsoleUtilities() {
     }
 
@@ -48,8 +48,7 @@ public class ConsoleUtilities {
     // Muted (helper text, timestamps)
     public static final String MUTED = "\u001B[38;5;243m";
 
-    public static final String ARROW = ConsoleUtilities.CYAN + "❯ " + ConsoleUtilities.RESET;
-
+    // displays a progress bar
     public static void showProgressBar(String label, int durationMs) {
         int totalBars = 30;
         int stepDelay = durationMs / totalBars;
@@ -66,11 +65,14 @@ public class ConsoleUtilities {
 
             try {
                 Thread.sleep(stepDelay);
-            } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
         System.out.println();
     }
 
+    // displays a spinning menu
     public static void spin(String label, int durationMs) {
         char[] frames = {'⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'};
         long endTime = System.currentTimeMillis() + durationMs;
@@ -78,7 +80,11 @@ public class ConsoleUtilities {
 
         while (System.currentTimeMillis() < endTime) {
             System.out.print("\r" + label + " " + frames[i % frames.length]);
-            try { Thread.sleep(80); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
+            try {
+                Thread.sleep(80);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
             i++;
         }
         System.out.print("\r" + label + " " + ConsoleUtilities.SUCCESS + "✓" + ConsoleUtilities.RESET);
