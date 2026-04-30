@@ -14,10 +14,13 @@ import java.time.temporal.ChronoUnit;
 
 public class AppController {
 
+    // creates a new ledger Object to be used throughout the program
     private final Ledger ledger = new Ledger();
-    public void run(){
 
-        // Add a option to select a specific transaction.
+    // method called in AccountLedgerApp.java to run the program and control app flow
+    public void run() {
+
+        // Add an option to select a specific transaction.
         ledger.loadTransactions();
         ConsoleUtilities.showProgressBar("Loading Account Ledger...", 3000);
         Menus.displayDashboard(ledger);
@@ -25,6 +28,7 @@ public class AppController {
 
     }
 
+    // Handles home screen (calls menu and gives menu options)
     private void handleHomeScreen() {
         boolean onHomeScreen = true;
         while (onHomeScreen) {
@@ -45,7 +49,9 @@ public class AppController {
             }
         }
     }
-    private void handleLedgerScreen(){
+
+    // Handles ledger screen (calls menu and gives menu options)
+    private void handleLedgerScreen() {
         boolean onLedgerScreen = true;
         while (onLedgerScreen) {
             Menus.ledgerMenu();
@@ -69,7 +75,8 @@ public class AppController {
 
     }
 
-    private void handleReportsScreen(){
+    // Handles report screen (calls menu and gives menu options)
+    private void handleReportsScreen() {
         boolean onReportScreen = true;
         while (onReportScreen) {
             Menus.reportsMenu();
@@ -98,7 +105,8 @@ public class AppController {
         }
     }
 
-    private void addDeposit(Ledger ledger){
+    // Method to add a new deposit
+    private void addDeposit(Ledger ledger) {
 
         System.out.println("\n── Add Deposit ──");
         String description = UserInput.promptForString("Description ");
@@ -116,6 +124,7 @@ public class AppController {
         System.out.println(ConsoleUtilities.ACCENT + "  Vendor      " + ConsoleUtilities.RESET + vendor);
         System.out.println(ConsoleUtilities.ACCENT + "  Amount      " + ConsoleUtilities.BRIGHT_GREEN + money.format(amount) + ConsoleUtilities.RESET);
 
+        // Switch to ensure user wants to confirm the adding of a deposit
         while (switchRunning) {
             switch (UserInput.promptForChar("\nSave this transaction? [Y/N] ", "YN")) {
                 case 'Y':
@@ -124,7 +133,7 @@ public class AppController {
                     switchRunning = false;
                     break;
                 case 'N':
-                    ConsoleUtilities.spin("Canceling..." , 3000);
+                    ConsoleUtilities.spin("Canceling...", 3000);
                     System.out.println("Transaction Canceled. Returning to home...");
                     switchRunning = false;
                     break;
@@ -133,7 +142,8 @@ public class AppController {
         }
     }
 
-    private void makePayment(){
+    // Method to add a new payment
+    private void makePayment() {
 
         System.out.println("\n── Make Payment ──");
         String description = UserInput.promptForString("Description: ");
@@ -151,6 +161,7 @@ public class AppController {
         System.out.println(ConsoleUtilities.ACCENT + "  Vendor:      " + ConsoleUtilities.RESET + vendor);
         System.out.println(ConsoleUtilities.ACCENT + "  Amount:      " + ConsoleUtilities.BRIGHT_RED + money.format(amount) + ConsoleUtilities.RESET);
 
+        // Switch to ensure user wants to confirm the adding of a deposit
         while (switchRunning) {
             switch (UserInput.promptForChar("\nSave this transactions? [Y/N] ", "YN")) {
                 case 'Y':
