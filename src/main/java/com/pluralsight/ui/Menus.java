@@ -181,11 +181,11 @@ public class Menus {
         while (viewing) {
             ConsoleUtilities.spin("Loading...", 1000);
 
-            System.out.println(B + "\n╔══════════════════════════════════════════════════════════════════════════════════════════════════╗");
-            System.out.println(B + "║                                       ACCOUNT LEDGER                                             ║");
-            System.out.println(B + "╠════════════╦══════════╦════════════════════════════════╦═══════════════════════════╦═════════════╣");
-            System.out.println(B + "║ " + A + "   DATE    " + B + "║ " + A + "  TIME   " + B + "║ " + A + "         DESCRIPTION           " + B + "║ " + A + "          VENDOR          " + B + "║ " + A + "   AMOUNT   " + B + "║");
-            System.out.println(B + "╠════════════╬══════════╬════════════════════════════════╬═══════════════════════════╬═════════════╣");
+            System.out.println(B + "\n╔══════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+            System.out.println(B + "║                                         ACCOUNT LEDGER                                               ║");
+            System.out.println(B + "╠════════════╦══════════╦════════════════════════════════╦═══════════════════════════╦═════════════════╣");
+            System.out.println(B + "║ " + A + "   DATE    " + B + "║ " + A + "  TIME   " + B + "║ " + A + "         DESCRIPTION           " + B + "║ " + A + "          VENDOR          " + B + "║ " + A + "     AMOUNT     " + B + "║");
+            System.out.println(B + "╠════════════╬══════════╬════════════════════════════════╬═══════════════════════════╬═════════════════╣");
 
             int start = currentPage * pageSize;
             int end = Math.min(start + pageSize, transactions.size());
@@ -194,7 +194,7 @@ public class Menus {
 
                 String amountColor = transaction.isDeposit() ? ConsoleUtilities.SUCCESS : ConsoleUtilities.DANGER;
 
-                System.out.printf(B + "║" + R + " %-11s" + B + "║" + M + " %-9s" + B + "║" + R + " %-30s " + B + "║" + R + " %-25s " + B + "║" + amountColor + "%12s" + B + " ║%n",
+                System.out.printf(B + "║" + R + " %-11s" + B + "║" + M + " %-9s" + B + "║" + R + " %-30s " + B + "║" + R + " %-25s " + B + "║" + amountColor + "%16s" + B + " ║%n",
                         transaction.getDate(),
                         transaction.getTime(),
                         truncate(transaction.getDescription(), 29),
@@ -205,27 +205,27 @@ public class Menus {
 
             int digits = String.valueOf(transactions.size()).length();
             String spacer = switch (digits) {
-                case 1 -> "%75s║%n";
-                case 2 -> "%74s║%n";
-                case 3 -> "%73s║%n";
-                default -> "%72s║%n";
+                case 1 -> "%79s║%n";
+                case 2 -> "%78s║%n";
+                case 3 -> "%77s║%n";
+                default -> "%76s║%n";
             };
 
             int digits2 = String.valueOf(totalPages).length();
             digits2 += String.valueOf(currentPage + 1).length();
             String spacer2 = switch (digits2) {
-                case 2 -> "%85s║%n";
-                case 3 -> "%84s║%n";
-                case 4 -> "%83s║%n";
-                case 5 -> "%82s║%n";
-                default -> "%81s║%n";
+                case 2 -> "%89s║%n";
+                case 3 -> "%88s║%n";
+                case 4 -> "%87s║%n";
+                case 5 -> "%86s║%n";
+                default -> "%85s║%n";
             };
 
 
-            System.out.println(B + "╠════════════╩══════════╩════════════════════════════════╩═══════════════════════════╩═════════════╣");
+            System.out.println(B + "╠════════════╩══════════╩════════════════════════════════╩═══════════════════════════╩═════════════════╣");
             System.out.printf(B + "║  " + A + "%d total transactions " + B + spacer, transactions.size(), "");
             System.out.printf(B + "║  " + A + "Page %d of %d" + B + spacer2 , currentPage + 1, totalPages, "");
-            System.out.println(B + "╚══════════════════════════════════════════════════════════════════════════════════════════════════╝" + R);
+            System.out.println(B + "╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝" + R);
 
 
             switch (UserInput.promptForChar("[N]ext  [P]rev  [Q]uit: ", "NPQ")) {

@@ -17,6 +17,7 @@ public class AppController {
     private final Ledger ledger = new Ledger();
     public void run(){
 
+        // Add a option to select a specific transaction.
         ledger.loadTransactions();
         ConsoleUtilities.showProgressBar("Loading Account Ledger...", 3000);
         Menus.displayDashboard(ledger);
