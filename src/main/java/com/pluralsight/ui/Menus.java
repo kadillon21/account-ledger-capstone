@@ -250,7 +250,7 @@ public class Menus {
             System.out.println(B + "╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝" + R);
 
             // Menu to prompt user if they want to go to next page or continue.
-            switch (UserInput.promptForChar("[N]ext  [P]rev  [Q]uit [F]irst [L]ast [J]ump ", "NPFLJQ")) {
+            switch (UserInput.promptForChar("[N]ext  [P]rev  [F]irst  [L]ast  [J]ump  [Q]uit ", "NPFLJQ")) {
                 case 'N':
                     if (currentPage < totalPages - 1) currentPage++;
                     break;
