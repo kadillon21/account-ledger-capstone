@@ -208,7 +208,7 @@ public class Menus {
             int start = currentPage * pageSize;
             int end = Math.min(start + pageSize, transactions.size());
             for (int i = start; i < end; i++) {
-                Transaction transaction = transactions.get(i);
+                Transaction transaction = sorted.get(i);
 
                 String amountColor = transaction.isDeposit() ? ConsoleUtilities.SUCCESS : ConsoleUtilities.DANGER;
 
@@ -250,12 +250,22 @@ public class Menus {
             System.out.println(B + "╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝" + R);
 
             // Menu to prompt user if they want to go to next page or continue.
-            switch (UserInput.promptForChar("[N]ext  [P]rev  [Q]uit: ", "NPQ")) {
+            switch (UserInput.promptForChar("[N]ext  [P]rev  [Q]uit [F]irst [L]ast [J]ump ", "NPFLJQ")) {
                 case 'N':
                     if (currentPage < totalPages - 1) currentPage++;
                     break;
                 case 'P':
                     if (currentPage > 0) currentPage--;
+                    break;
+                case 'F':
+                    currentPage = 0;
+                    break;
+                case 'L':
+                    currentPage = totalPages - 1;
+                    break;
+                case 'J':
+                    int targetPage = UserInput.promptForInt("Jump to page (1-" + totalPages + ") ", 1, totalPages);
+                    currentPage = targetPage - 1;
                     break;
                 case 'Q':
                     viewing = false;
