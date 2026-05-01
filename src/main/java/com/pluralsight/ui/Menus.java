@@ -13,6 +13,27 @@ import java.util.List;
 
 public class Menus {
 
+    // Displays splash screen for startup
+    public static void displaySplashScreen() {
+        String B = ConsoleUtilities.BORDER;
+        String A = ConsoleUtilities.ACCENT;
+        String R = ConsoleUtilities.RESET;
+
+        System.out.println(B +
+                "  ██████╗ ██████╗ ███████╗███████╗████████╗██╗ ██████╗ ███████╗\n" +
+                "  ██╔══██╗██╔══██╗██╔════╝██╔════╝╚══██╔══╝██║██╔════╝ ██╔════╝\n" +
+                "  ██████╔╝██████╔╝█████╗  ███████╗   ██║   ██║██║  ███╗█████╗\n"  +
+                "  ██╔═══╝ ██╔══██╗██╔══╝  ╚════██║   ██║   ██║██║   ██║██╔══╝\n"  +
+                "  ██║     ██║  ██║███████╗███████║   ██║   ██║╚██████╔╝███████╗\n" +
+                "  ╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝   ╚═╝   ╚═╝ ╚═════╝ ╚══════╝" + R);
+
+        System.out.println(A +
+                "            ═══════════════════════════════════════\n" +
+                "                    M O T O R S   G R O U P\n"        +
+                "            ═══════════════════════════════════════" + R);
+
+    }
+
     // Displays dashboard
     public static void displayDashboard(Ledger ledger) {
         String B = ConsoleUtilities.BORDER;
@@ -196,7 +217,8 @@ public class Menus {
 
         boolean viewing = true;
         while (viewing) { // Loop to keep viewing so user can select pages
-            ConsoleUtilities.spin("Loading...", 1000);
+            System.out.println();
+            ConsoleUtilities.spin("Loading page number: " + (currentPage + 1 ) + " ", 1000);
 
             // Header for transactions
             System.out.println(B + "\n╔══════════════════════════════════════════════════════════════════════════════════════════════════════╗");
@@ -268,6 +290,7 @@ public class Menus {
                     currentPage = targetPage - 1;
                     break;
                 case 'Q':
+                    ConsoleUtilities.spin("Exiting...", 500);
                     viewing = false;
                     break;
             }

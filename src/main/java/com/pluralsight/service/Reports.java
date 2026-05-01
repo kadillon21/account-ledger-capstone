@@ -3,6 +3,7 @@ package com.pluralsight.service;
 
 import com.pluralsight.model.SearchCriteria;
 import com.pluralsight.model.Transaction;
+import com.pluralsight.util.ConsoleUtilities;
 import com.pluralsight.util.UserInput;
 import com.pluralsight.ui.Menus;
 
@@ -78,12 +79,15 @@ public class Reports {
             Menus.customSearchOptions(criteria);
             switch (UserInput.promptForChar("Your choice ", "ESX")) {
                 case 'E':
+                    ConsoleUtilities.spin("Opening editing menu...", 500);
                     editCriteria(criteria);
                     break;
                 case 'S':
+                    ConsoleUtilities.spin("Searching...", 500);
                     editing = false;
                     break;
                 case 'X':
+                    ConsoleUtilities.spin("Canceling search...", 500);
                     return;
             }
         }
@@ -100,21 +104,27 @@ public class Reports {
         switch (UserInput.promptForInt("What would you like to change? ", 1, 7)) {
             case 1:
                 criteria.setStartDate(UserInput.promptForDate("Start date [YYYY-MM-DD] "));
+                ConsoleUtilities.spin("Saving search criteria...", 500);
                 break;
             case 2:
                 criteria.setEndDate(UserInput.promptForDate("End date [YYYY-MM-DD] "));
+                ConsoleUtilities.spin("Saving search criteria...", 500);
                 break;
             case 3:
                 criteria.setDescription(UserInput.promptForString("Description "));
+                ConsoleUtilities.spin("Saving search criteria...", 500);
                 break;
             case 4:
                 criteria.setVendor(UserInput.promptForString("Vendor name "));
+                ConsoleUtilities.spin("Saving search criteria...", 500);
                 break;
             case 5:
                 criteria.setMinAmount(UserInput.promptForDouble("Min Value ", 1));
+                ConsoleUtilities.spin("Saving search criteria...", 500);
                 break;
             case 6:
                 criteria.setMaxAmount(UserInput.promptForDouble("Max Value", 1));
+                ConsoleUtilities.spin("Saving search criteria...", 500);
                 break;
             case 7:
                 Menus.transTypeMenu();

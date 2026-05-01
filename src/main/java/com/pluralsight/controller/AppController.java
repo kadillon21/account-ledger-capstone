@@ -21,6 +21,7 @@ public class AppController {
     public void run() {
 
         // Add an option to select a specific transaction.
+        Menus.displaySplashScreen();
         ledger.loadTransactions();
         ConsoleUtilities.showProgressBar("Loading Account Ledger...", 3000);
         Menus.displayDashboard(ledger);
@@ -35,15 +36,19 @@ public class AppController {
             Menus.mainMenu();
             switch (UserInput.promptForChar("Your choice ", "DPLX")) {
                 case 'D':
+                    ConsoleUtilities.spin("Loading deposit menu...", 500);
                     addDeposit(ledger);
                     break;
                 case 'P':
+                    ConsoleUtilities.spin("Loading payment menu...", 500);
                     makePayment();
                     break;
                 case 'L':
+                    ConsoleUtilities.spin("Loading ledger...", 500);
                     handleLedgerScreen();
                     break;
                 case 'X':
+                    ConsoleUtilities.spin("Exiting...", 1000);
                     onHomeScreen = false;
                     break;
             }
@@ -57,19 +62,24 @@ public class AppController {
             Menus.ledgerMenu();
             switch (UserInput.promptForChar("Your choice ", "ADPRH")) {
                 case 'A':
+                    ConsoleUtilities.spin("Loading all transactions....", 500);
                     Menus.displayTransactions(ledger.getLedger());
                     break;
                 case 'D':
+                    ConsoleUtilities.spin("Loading Deposits...", 500);
                     Menus.displayTransactions(ledger.getDeposits());
                     break;
                 case 'P':
+                    ConsoleUtilities.spin("Loading Payments...", 500);
                     Menus.displayTransactions(ledger.getPayments());
                     break;
                 case 'R':
+                    ConsoleUtilities.spin("Opening report screen...", 500);
                     handleReportsScreen();
                     break;
                 case 'H':
                     onLedgerScreen = false;
+                    ConsoleUtilities.spin("Returning to home...", 500);
             }
         }
 
@@ -82,21 +92,27 @@ public class AppController {
             Menus.reportsMenu();
             switch (UserInput.promptForInt("Your choice ", 0, 6)) {
                 case 1:
+                    ConsoleUtilities.spin("Loading MTD report...", 500);
                     Reports.monthToDateReport(ledger.getLedger());
                     break;
                 case 2:
+                    ConsoleUtilities.spin("Loading previous month report...", 500);
                     Reports.previousMonthReport(ledger.getLedger());
                     break;
                 case 3:
+                    ConsoleUtilities.spin("Loading YTD report...", 500);
                     Reports.yearToDate(ledger.getLedger());
                     break;
                 case 4:
+                    ConsoleUtilities.spin("Loading previous year report...", 500);
                     Reports.previousYearReport(ledger.getLedger());
                     break;
                 case 5:
+                    ConsoleUtilities.spin("Loading...", 500);
                     Reports.searchByVendor(ledger.getLedger());
                     break;
                 case 6:
+                    ConsoleUtilities.spin("Loading custom search menu...", 500);
                     Reports.customSearch(ledger.getLedger());
                     break;
                 case 0:
@@ -128,8 +144,9 @@ public class AppController {
         while (switchRunning) {
             switch (UserInput.promptForChar("\nSave this transaction? [Y/N] ", "YN")) {
                 case 'Y':
-                    ConsoleUtilities.spin("Adding deposit...", 3000);
+                    ConsoleUtilities.showProgressBar("Adding deposit...", 3000);
                     ledger.saveTransaction(new Transaction(date, time, description, vendor, amount));
+                    ConsoleUtilities.spin("Deposit saved returning home...", 1000);
                     switchRunning = false;
                     break;
                 case 'N':
@@ -165,8 +182,9 @@ public class AppController {
         while (switchRunning) {
             switch (UserInput.promptForChar("\nSave this transactions? [Y/N] ", "YN")) {
                 case 'Y':
-                    ConsoleUtilities.spin("Adding Payment...", 3000);
+                    ConsoleUtilities.showProgressBar("Adding Payment...", 3000);
                     ledger.saveTransaction(new Transaction(date, time, description, vendor, amount));
+                    ConsoleUtilities.spin("Payment saved returning home...", 1000);
                     switchRunning = false;
                     break;
                 case 'N':
